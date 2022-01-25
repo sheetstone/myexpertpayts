@@ -1,0 +1,28 @@
+@import "../../../globalStyle/variables";
+
+.tabList {
+  transform: translateY(1px);
+}
+
+.tabItem {
+  margin-right: 1em;
+}
+
+.tabLink {
+  color: #777777;
+  svg {
+    margin-right: 0.5em;
+  }
+
+  &:hover {
+    color: $primary;
+  }
+  &.active {
+    color: $primary;
+  }
+}
+
+.tabContent {
+  background: white;
+  border-top: 1px solid #cccccc;
+}

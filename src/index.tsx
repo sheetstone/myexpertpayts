@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './containers/App';
+import LanguageProvider from "./translations/LanguageProvider";
+import { BrowserRouter as Router } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <LanguageProvider>
+    <Router>
+      <App />
+    </Router>
+  </LanguageProvider>,
   document.getElementById('root')
 );
 
