@@ -8,17 +8,17 @@
 
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import HomePage from "./HomePage/Homepage";
-import BankAccount from "containers/BankAccount/bankAccount";
-import CaseInfo from "containers/CaseInfo/caseinfo";
-import Recipients from "containers/Recipients/recipients";
-import Payment from "containers/Payment/payment.js"
+import BankAccount from "./BankAccount/bankAccount";
+import CaseInfo from "./CaseInfo/caseinfo";
+import Recipients from "./Recipients/recipients";
+import Payment from "./Payment/payment"
 //import Payment from 'containers/Payment/Loadable';
 //import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import Header from "components/Layout/Header/Header";
-import Footer from "components/Layout/Footer/Footer";
+import Header from "../components/Layout/Header/Header";
+import Footer from "../components/Layout/Footer/Footer";
 
 export default function App() {
   return (
@@ -27,15 +27,15 @@ export default function App() {
         <meta name="description" content="My ExpertPay" />
       </Helmet>
       <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/bankaccount" component={BankAccount} />
-        <Route path="/caseinfo" component={CaseInfo} />
-        <Route path="/recipients" component={Recipients} />
-        <Route path="/payment" component={Payment} />
-         {/*<Route path="/" component={NotFoundPage} />
+      <Routes>
+        <Route exact path="/" element={<HomePage />} />
+        {/*<Route path="/bankaccount" element={<BankAccount />} />
+        <Route path="/caseinfo" element={<CaseInfo />} />
+        <Route path="/recipients" element={<Recipients />} />
+        <Route path="/payment" element={<Payment />} />
+         <Route path="/" component={NotFoundPage} />
         */}
-      </Switch>
+      </Routes>
       <Footer />
     </>
   );

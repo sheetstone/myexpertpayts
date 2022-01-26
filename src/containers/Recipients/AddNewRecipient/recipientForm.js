@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export const schema = yup.object().shape({
   payeeName: yup

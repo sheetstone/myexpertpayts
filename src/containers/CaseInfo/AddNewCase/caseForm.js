@@ -1,7 +1,7 @@
 import React from 'react'
 import * as yup from 'yup'
 import validCaseNumber from 'utils/validCaseNumber'
-import { yupResolver } from '@hookform/resolvers'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 yup.addMethod(yup.string, 'isCaseNumber', validCaseNumber)
 

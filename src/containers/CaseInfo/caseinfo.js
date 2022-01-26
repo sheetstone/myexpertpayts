@@ -3,7 +3,7 @@
  */
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Route, Switch } from "react-router-dom";
+import { BrowserRouter as Switch, Route } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import { Container } from "react-bootstrap";
 
@@ -13,7 +13,6 @@ import classes from "./caseinfo.module.scss";
 import messages from "./messages";
 
 export default function CaseInfo(props) {
-  const { match } = props;
   return (
     <article className={classes.caseinfobg}>
       <Helmet>
@@ -26,9 +25,9 @@ export default function CaseInfo(props) {
         </h1>
         <hr />
         <Switch>
-          <Route exact path={`${match.url}`} component={CasesList} />
-          <Route path={`${match.url}/addnewcase`} component={AddNewCase} />
-          <Route path={`${match.url}/editcase`} component={AddNewCase} />
+          <Route exact path="" element={<CasesList />} />
+          <Route path="addnewcase" element={<AddNewCase />} />
+          <Route path="editcase" element={<AddNewCase />} />
         </Switch>
       </Container>
     </article>

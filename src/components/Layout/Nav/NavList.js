@@ -15,8 +15,8 @@ function NavList() {
       <Nav.Item>
         <NavLink
           to="/bankaccount"
-          className={classes.Navlink + " nav-link"}
-          activeClassName={classes.active}
+          className={classes.Navlink + " nav-link" + " "}
+          //activeClassName={classes.active}
         >
           <FormattedMessage {...messages.bankAccount} />
         </NavLink>
@@ -25,7 +25,7 @@ function NavList() {
         <NavLink
           to="/caseinfo"
           className={classes.Navlink + " nav-link"}
-          activeClassName={classes.active}
+          //activeClassName={classes.active}
         >
           <FormattedMessage {...messages.caseInfo} />
         </NavLink>
@@ -34,7 +34,7 @@ function NavList() {
         <NavLink
           to="/recipients"
           className={classes.Navlink + " nav-link"}
-          activeClassName={classes.active}
+          //activeClassName={classes.active}
         >
           <FormattedMessage {...messages.recipients} />
         </NavLink>
@@ -43,7 +43,7 @@ function NavList() {
         <NavLink
           to="/payment"
           className={classes.Navlink + " nav-link"}
-          activeClassName={classes.active}
+          //activeClassName={classes.active}
         >
           <FormattedMessage {...messages.payment} />
         </NavLink>
