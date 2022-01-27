@@ -12,7 +12,7 @@ import classes from "./accountSummary.module.scss";
 const AccountSummary = () => {
   const [paymentData, setPaymentData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<any>('');
 
   useEffect(() => {
     getPayments()

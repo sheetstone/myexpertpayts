@@ -50,7 +50,7 @@ export default function RecipientList(props) {
       <p>Below is a list of your recipients.</p>
       <Row>
         <Col>
-          <Link to={props.match.url + "/addnewrecipient"}>
+          <Link to="addnewrecipient">
             <Button variant="primary" size="md">
               <FontAwesomeIcon icon={faPlus} color="#ffffff" />
               &nbsp;Add New Recipient

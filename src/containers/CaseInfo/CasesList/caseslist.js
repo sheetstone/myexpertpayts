@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 
 import { Row, Col, Table, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getCases } from "api/caseApi.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -20,6 +20,8 @@ const header = ["Case Number", "NCP Name", "Children Name", "Action"];
 const CasesList = (props) => {
   const [cases, setCases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const history = useNavigate();
 
   useEffect(() => {
     reload();
@@ -42,7 +44,7 @@ const CasesList = (props) => {
   };
 
   const onEditClicked = (key, item, e) => {
-    props.history.push(props.match.url + "/editcase", {
+    history("editcase", {
       key: key,
       case: item,
     });
@@ -96,7 +98,7 @@ const CasesList = (props) => {
     <>
       <Row>
         <Col>
-          <Link to={props.match.url + "/addnewcase"}>
+          <Link to="addnewcase">
             <Button variant="primary" size="md">
               <FontAwesomeIcon icon={faPlus} color="#ffffff" />
               &nbsp;Add New case

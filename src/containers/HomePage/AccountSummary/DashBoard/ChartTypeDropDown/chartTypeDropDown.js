@@ -10,7 +10,7 @@ const ChartTypeDropDown = (props) => {
 
   return (
     <select
-      className={classes.forminline + " form-control"}
+      className={classes.forminline + " form-select"}
       onChange={handleChange}
     >
       <option value="1">Recipients</option>

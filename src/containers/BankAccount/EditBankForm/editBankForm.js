@@ -37,7 +37,7 @@ const schema = yup.object().shape({
 });
 
 export default function EditBankAccount(props) {
-  const { register, handleSubmit, errors, formState, reset } = useForm({
+  const { register, handleSubmit, formState: { errors }, formState, reset } = useForm({
     mode: "onBlur",
     reValidateMode: "onChange",
     resolver: yupResolver(schema),

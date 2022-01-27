@@ -29,11 +29,11 @@ export default function App() {
       <Header />
       <Routes>
         <Route exact path="/" element={<HomePage />} />
-        {/*<Route path="/bankaccount" element={<BankAccount />} />
+        <Route path="/bankaccount" element={<BankAccount />} />
         <Route path="/caseinfo" element={<CaseInfo />} />
         <Route path="/recipients" element={<Recipients />} />
         <Route path="/payment" element={<Payment />} />
-         <Route path="/" component={NotFoundPage} />
+         {/*<Route path="/" component={NotFoundPage} />
         */}
       </Routes>
       <Footer />
