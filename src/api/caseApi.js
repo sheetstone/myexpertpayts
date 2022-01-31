@@ -1,4 +1,4 @@
-import { baseUrl } from "./baseUrl";
+import { baseUrl } from "./baseApi";
 import { onSuccess } from "./baseApi";
 // import md5 from 'js-md5';
 

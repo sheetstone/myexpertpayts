@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { getBanks, deleteBank, updateBank } from "api/bankApi";
+import { getBanks, deleteBank, updateBank } from "api/bank/bankApi";
 
 export const BankAccountContext = React.createContext({
   bankData: null,
@@ -8,14 +8,14 @@ export const BankAccountContext = React.createContext({
   toggleEditBank: () => {},
   delBank: () => {},
   verifyBank: () => {},
-  reloadBank: () => {},
+  loadBank: () => {},
 });
 
 const BankAccountContextProvider = (props) => {
   const [bankData, setBankData] = useState([]);
   const [showEditBank, setShowEditBank] = useState(false);
 
-  const reloadBank = async () => {
+  const loadBank = async () => {
     console.log("Called reload");
     const result = await getBanks();
     setBankData(result);
@@ -24,7 +24,7 @@ const BankAccountContextProvider = (props) => {
 
   const delBank = async (key) => {
     await deleteBank(key);
-    reloadBank();
+    loadBank();
   };
 
   const toggleEditBank = (open) => {
@@ -35,7 +35,7 @@ const BankAccountContextProvider = (props) => {
     const newBankItem = { ...bankData[key] };
     newBankItem.verified = true;
     await updateBank(key, newBankItem);
-    reloadBank();
+    loadBank();
   };
 
   return (
@@ -46,7 +46,7 @@ const BankAccountContextProvider = (props) => {
         toggleEditBank: toggleEditBank,
         delBank: delBank,
         verifyBank: verfiyBank,
-        reloadBank: reloadBank,
+        loadBank: loadBank,
       }}
     >
       {props.children}

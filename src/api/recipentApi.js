@@ -1,5 +1,4 @@
-import { baseUrl } from "./baseUrl";
-import { onSuccess } from "./baseApi";
+import { onSuccess, baseUrl } from "./baseApi";
 // import md5 from 'js-md5';
 
 export async function getRecepient() {

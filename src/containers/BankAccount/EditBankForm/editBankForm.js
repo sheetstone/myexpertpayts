@@ -6,7 +6,7 @@ import { FormattedMessage } from "react-intl";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal, Button, Form, Col } from "react-bootstrap";
-import { addBank } from "api/bankApi";
+import { addBank } from "api/bank/bankApi";
 import validRoutin from "utils/validRoutin";
 import * as yup from "yup";
 import messages from "../messages";
@@ -50,25 +50,17 @@ export default function EditBankAccount(props) {
     rountinNumber: {
       type: "text",
       name: "rountingNumber",
-      ref: register,
-      isValid: formState.touched.rountingNumber && !errors.rountingNumber,
-      isInvalid: formState.touched.rountingNumber && errors.rountingNumber,
+      ref: register
     },
     accountNumber: {
       type: "text",
       name: "accountNumber",
-      ref: register,
-      isValid: formState.touched.accountNumber && !errors.accountNumber,
-      isInvalid: formState.touched.accountNumber && errors.accountNumber,
+      ref: register
     },
     confirmAccountNumber: {
       type: "text",
       name: "confirmAccountNumber",
-      ref: register,
-      isValid:
-        formState.touched.confirmAccountNumber && !errors.confirmAccountNumber,
-      isInvalid:
-        formState.touched.confirmAccountNumber && errors.confirmAccountNumber,
+      ref: register
     },
     accountTypeChecking: {
       inline: true,

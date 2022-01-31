@@ -1,5 +1,4 @@
-import { baseUrl } from "./baseUrl";
-import { onSuccess } from "./baseApi";
+import { onSuccess, baseUrl } from "./baseApi";
 
 export function getMessages() {
   return get("messages.json");
