@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import App from './containers/App';
 import LanguageProvider from "./translations/LanguageProvider";
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <LanguageProvider>

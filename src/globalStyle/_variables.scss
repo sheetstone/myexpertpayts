@@ -30,7 +30,12 @@ $nav-tabs-border-color: #cccccc;
 $nav-tabs-link-hover-border-color: $nav-tabs-border-color;
 $nav-tabs-link-active-bg: $body-bg;
 $nav-tabs-link-active-border-color: $nav-tabs-border-color
-  $nav-tabs-border-color $nav-tabs-link-active-bg;
+$nav-tabs-border-color $nav-tabs-link-active-bg;
+
+//Btn
+$btn-link-color: white;
+$min-contrast-ratio: 3;
+
 
 // Font
 @import "font.scss";

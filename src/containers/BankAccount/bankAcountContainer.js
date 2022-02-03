@@ -6,7 +6,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { BankAccountContext } from './bankAccount-context'
 import LoadingIndicator from 'components/UI/LoadingIndicator/LoadingIndicator'
 import BankList from './BankList/bankList'
-import EditBankAccount from './EditBankForm/editBankForm'
+import EditBankAccount from './EditBankForm/editBankAccount'
 
 const BankAccountContainer = props => {
   const [isLoading, setIsLoading] = useState(true)

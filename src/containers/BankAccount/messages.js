@@ -34,12 +34,16 @@ export default defineMessages({
     id: `${scope}.accountNumber`,
     defaultMessage: "Account Number",
   },
-  accountNumberConfirmation: {
-    id: `${scope}.accountNumberConfirmation`,
+  confirmAccountNumber: {
+    id: `${scope}.confirmAccountNumber`,
     defaultMessage: "Confirm Account",
   },
   rountingNumber: {
     id: `${scope}.rountingNumber`,
     defaultMessage: "Bank Routing Number",
   },
+  accountType: {
+    id: `${scope}.accountType`,
+    defaultMessage: "",
+  }
 });

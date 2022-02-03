@@ -1,21 +1,25 @@
 /*
- * Depatched: Mark to delete
  * Add/Edit Bank List
  */
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
-import { useForm } from "react-hook-form";
+import { useForm, Path, UseFormRegister, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Modal, Button, Form, Col } from "react-bootstrap";
+import { Modal, Button, Form, Col, Row } from "react-bootstrap";
 import { addBank } from "api/bank/bankApi";
 import validRoutin from "utils/validRoutin";
+import { BankFormType } from "api/bank/bank.store";
 import * as yup from "yup";
 import messages from "../messages";
 
 import RequiredStar from "components/Form/RequiredStar/requiredStar";
 import FormValidationError from "components/Form/formValidationError/formValidationError";
 
-yup.addMethod(yup.string, "isRounting", validRoutin);
+type BankFormProps = {
+  label: Path<BankFormType>;
+  register: UseFormRegister<BankFormType>;
+  required: boolean;
+};
 
 const schema = yup.object().shape({
   rountingNumber: yup
@@ -32,67 +36,75 @@ const schema = yup.object().shape({
     .required("Account Number is required")
     .min(4, "Account Number is too short")
     .max(17, "Account Number is too long")
-    .test("passwords-match", "AccountNumber should match", function (value) {
+    .test("passwords-match", "Account Number should match", function (value) {
       return this.parent.accountNumber === value;
     }),
 });
 
-export default function EditBankAccount(props) {
-  const { register, handleSubmit, formState: { errors }, formState, reset } = useForm({
+// yup.addMethod(yup.string, "isRounting", validRoutin);
+type FormCheckType = "checkbox" | "radio" | "switch";
+
+export default function EditBankAccount(props: any) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    formState,
+    reset,
+  } = useForm<BankFormType>({
     mode: "onBlur",
     reValidateMode: "onChange",
-    resolver: yupResolver(schema),
     criteriaMode: "firstError",
     shouldFocusError: true,
     shouldUnregister: false,
+    resolver: yupResolver(schema)
   });
 
   const formElement = {
-    rountinNumber: {
+    rountingNumber: {
       type: "text",
-      name: "rountingNumber",
-      ref: register
+      ...register("rountingNumber"),
     },
     accountNumber: {
       type: "text",
-      name: "accountNumber",
-      ref: register
+      ...register("accountNumber"),
     },
     confirmAccountNumber: {
       type: "text",
-      name: "confirmAccountNumber",
-      ref: register
+      ...register("confirmAccountNumber"),
+    },
+    accountType: {
+      type: "radio" as FormCheckType,
     },
     accountTypeChecking: {
       inline: true,
-      type: "radio",
-      name: "accountType",
-      ref: register,
       id: "accounttype-radio-checking",
       value: "checking",
       label: "Checking",
+      defaultChecked: true,
+      type: "radio" as FormCheckType,
+      ...register("accountType"),
     },
     accountTypeSaving: {
       inline: true,
-      type: "radio",
-      name: "accountType",
-      ref: register,
       id: "accounttype-radio-saving",
       value: "saving",
       label: "Saving",
+      type: "radio" as FormCheckType,
+      ...register("accountType"),
     },
   };
 
   const { show } = props;
   useEffect(() => {
     reset({
-      rountinNumber: "",
+      rountingNumber: "",
       accountNumber: "",
       confirmAccountNumber: "",
     });
   }, [show, reset]);
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<BankFormType> = (data: any) => {
     console.log("Submitting:" + JSON.stringify(data));
     addBank(data).then((res) => {
       props.reloadState();
@@ -100,7 +112,19 @@ export default function EditBankAccount(props) {
     });
   };
 
-  //console.log(formState);
+  const { Group, Control, Label, Check } = Form;
+
+  const Input = ({ label, register, required }: BankFormProps) => (
+    <Group controlId={label}>
+      <Label>
+        <FormattedMessage {...messages[label]} />
+        {required?<RequiredStar />:null}
+      </Label>
+      <Control {...formElement[label]} className={errors[label]?'is-invalid':''}/>
+      <FormValidationError formEle={label} errors={errors} />
+    </Group>
+  );
+
   return (
     <Modal show={props.show} onHide={props.onHide}>
       <Form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
@@ -110,56 +134,33 @@ export default function EditBankAccount(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Row>
+          <Row>
             <Col>
-              <Form.Group controlId="rountingNumber">
-                <Form.Label>
-                  <FormattedMessage {...messages.rountingNumber} />
-                  <RequiredStar />
-                </Form.Label>
-                <Form.Control {...formElement.rountinNumber} />
-                <FormValidationError formEle="rountingNumber" errors={errors} />
-              </Form.Group>
+              <Input label="rountingNumber" register={register} required />
             </Col>
-          </Form.Row>
+          </Row>
 
-          <Form.Row>
+          <Row>
             <Col>
-              <Form.Group controlId="accountNumber">
-                <Form.Label>
-                  <FormattedMessage {...messages.accountNumber} />
-                  <RequiredStar />
-                </Form.Label>
-                <Form.Control {...formElement.accountNumber} />
-                <FormValidationError formEle="accountNumber" errors={errors} />
-              </Form.Group>
+              <Input label="accountNumber" register={register} required /> 
             </Col>
             <Col>
-              <Form.Group controlId="confirmAccountNumber">
-                <Form.Label>
-                  <FormattedMessage {...messages.accountNumberConfirmation} />
-                  <RequiredStar />
-                </Form.Label>
-                <Form.Control {...formElement.confirmAccountNumber} />
-                <FormValidationError
-                  formEle="confirmAccountNumber"
-                  errors={errors}
-                />
-              </Form.Group>
+              <Input label="confirmAccountNumber" register={register} required />
             </Col>
-          </Form.Row>
+          </Row>
 
-          <Form.Row>
+          <Row>
             <Col>
-              <Form.Check {...formElement.accountTypeChecking} defaultChecked />
-              <Form.Check {...formElement.accountTypeSaving} />
+              <Check {...formElement.accountTypeChecking} />
+              <Check {...formElement.accountTypeSaving} />
             </Col>
-          </Form.Row>
+          </Row>
           <hr />
           <p>
             <FormattedMessage {...messages.addBankMessage} />
           </p>
         </Modal.Body>
+        {console.log(errors)}
         <Modal.Footer>
           <Button variant="secondary" onClick={props.onHide}>
             Close

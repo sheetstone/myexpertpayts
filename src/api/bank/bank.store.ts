@@ -9,6 +9,13 @@ export interface Bank {
   verified: boolean;
 }
 
+export interface BankFormType {
+  rountingNumber: string,
+  accountNumber: string,
+  confirmAccountNumber: string,
+  accountType: "checking" | "saving"
+}
+
 export const rawBanksData$ = new BehaviorSubject<Bank[]>([]);
 
 defer(async function(){
