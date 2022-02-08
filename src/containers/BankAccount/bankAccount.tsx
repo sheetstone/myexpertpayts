@@ -1,7 +1,6 @@
 /*
  * Bank Account
  */
-import React from "react";
 import { Helmet } from "react-helmet";
 import { FormattedMessage } from "react-intl";
 import { Container } from "react-bootstrap";
@@ -12,7 +11,7 @@ import { BankContextProvider } from "api/bank/bank.store";
 import classes from "./bankAccount.module.scss";
 import messages from "./messages";
 
-const BankAccount = (props) => {
+const BankAccount = () => {
   return (
     <article className={classes.bankaccountbg}>
       <Helmet>
