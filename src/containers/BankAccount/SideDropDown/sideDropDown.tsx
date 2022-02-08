@@ -1,45 +1,44 @@
 /*
  * Side Drop Down Menu
  */
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 
-import { BankAccountContext } from "../bankAccount-context";
+import { useBanks } from "api/bank/bank.store";
 import classes from "./sideDropDown.module.scss";
 import Confirm from "components/UI/Confirm/Confirm";
 
-const BankPropToggle = React.forwardRef(
-  ({ onClick, children, active }, ref) => {
-    const getActive = () => {
-      return active ? classes.active : "";
-    };
+const BankPropToggle = React.forwardRef((props: any, ref: React.LegacyRef<HTMLButtonElement>) => {
+  const { onClick, children, active } = props;
+  const getActive = () => {
+    return active ? classes.active : "";
+  };
 
-    const handleClick = (e) => {
-      e.preventDefault();
-      onClick(e);
-    };
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    onClick(e);
+  };
 
-    return (
-      <button
-        ref={ref}
-        onClick={handleClick}
-        className={classes.menuToggle + " " + getActive()}
-      >
-        {children}
-      </button>
-    );
-  }
-);
+  return (
+    <button
+      ref={ref}
+      onClick={handleClick}
+      className={classes.menuToggle + " " + getActive()}
+    >
+      {children}
+    </button>
+  );
+});
 
-const SideDropDown = (props) => {
+const SideDropDown = (props: any) => {
   const [isShow, setShow] = useState(false);
   const { keyItem, bankItem } = props;
 
-  const { delBank, verifyBank } = useContext(BankAccountContext);
+  const { delBank, verifyBank } = useBanks([]);
 
-  const handleToggle = (isOpen) => {
+  const handleToggle = (isOpen:boolean) => {
     setShow(isOpen);
   };
 
@@ -67,16 +66,18 @@ const SideDropDown = (props) => {
         ) : null}
 
         <Confirm
-            title="Delete action confirmation"
-            description={<>
-                          There is no recurring payment associated with this bank account.
-                          Are you sure to delete this bank account?
-                        </>}
+          title="Delete action confirmation"
+          description={
+            <>
+              There is no recurring payment associated with this bank account.
+              Are you sure to delete this bank account?
+            </>
+          }
         >
-          {(confirm) => (
-          <Dropdown.Item  onClick={(e) => confirm(() => delBank(keyItem), e)} >
-            Delete
-          </Dropdown.Item>
+          {(confirm:Function) => (
+            <Dropdown.Item onClick={(e) => confirm(() => delBank(keyItem), e)}>
+              Delete
+            </Dropdown.Item>
           )}
         </Confirm>
 

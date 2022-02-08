@@ -4,7 +4,7 @@
 import React from "react";
 
 import classes from "./bankItem.module.scss";
-import SideDropDown from "../SideDropDown/sideDropDown";
+import SideDropDown from "../../SideDropDown/sideDropDown";
 
 function formatBankNumber(number = "0") {
   const reg = /\d{4}$/gm;
@@ -26,7 +26,7 @@ function labelVerification() {
   );
 }
 
-export default function BankItem(props) {
+export default function BankItem(props:any) {
   const { bankitem, keyItem } = props;
   return (
     <div className={classes.bankCard}>

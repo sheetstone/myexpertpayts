@@ -6,8 +6,8 @@ import { Helmet } from "react-helmet";
 import { FormattedMessage } from "react-intl";
 import { Container } from "react-bootstrap";
 
-import BankAccountContextProvider from "./bankAccount-context";
 import BankAccountContainer from "./bankAcountContainer";
+import { BankContextProvider } from "api/bank/bank.store";
 
 import classes from "./bankAccount.module.scss";
 import messages from "./messages";
@@ -20,7 +20,7 @@ const BankAccount = (props) => {
         <meta name="description" content="My Expertpay" />
       </Helmet>
 
-      <BankAccountContextProvider>
+      <BankContextProvider>
         <Container>
           <h1 className={classes.pageheader}>
             <FormattedMessage {...messages.header} />
@@ -31,7 +31,7 @@ const BankAccount = (props) => {
           </p>
           <BankAccountContainer />
         </Container>
-      </BankAccountContextProvider>
+      </BankContextProvider>
     </article>
   );
 };

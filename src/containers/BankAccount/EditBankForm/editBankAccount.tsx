@@ -6,7 +6,7 @@ import { FormattedMessage } from "react-intl";
 import { useForm, Path, UseFormRegister, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal, Button, Form, Col, Row } from "react-bootstrap";
-import { addBank } from "api/bank/bankApi";
+import { addBank } from "api/bank/bank.api";
 import validRoutin from "utils/validRoutin";
 import { BankFormType } from "api/bank/bank.store";
 import * as yup from "yup";
@@ -41,7 +41,6 @@ const schema = yup.object().shape({
     }),
 });
 
-// yup.addMethod(yup.string, "isRounting", validRoutin);
 type FormCheckType = "checkbox" | "radio" | "switch";
 
 export default function EditBankAccount(props: any) {
@@ -49,7 +48,6 @@ export default function EditBankAccount(props: any) {
     register,
     handleSubmit,
     formState: { errors },
-    formState,
     reset,
   } = useForm<BankFormType>({
     mode: "onBlur",
@@ -113,11 +111,12 @@ export default function EditBankAccount(props: any) {
   };
 
   const { Group, Control, Label, Check } = Form;
+  const Text = FormattedMessage;
 
   const Input = ({ label, register, required }: BankFormProps) => (
     <Group controlId={label}>
       <Label>
-        <FormattedMessage {...messages[label]} />
+        <Text {...messages[label]} />
         {required?<RequiredStar />:null}
       </Label>
       <Control {...formElement[label]} className={errors[label]?'is-invalid':''}/>
@@ -130,17 +129,17 @@ export default function EditBankAccount(props: any) {
       <Form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header closeButton>
           <Modal.Title>
-            <FormattedMessage {...messages.addBankTitle} />
+            <Text {...messages.addBankTitle} />
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Row>
+          <Row className="mb-3">
             <Col>
               <Input label="rountingNumber" register={register} required />
             </Col>
           </Row>
 
-          <Row>
+          <Row className="mb-3">
             <Col>
               <Input label="accountNumber" register={register} required /> 
             </Col>
@@ -149,24 +148,23 @@ export default function EditBankAccount(props: any) {
             </Col>
           </Row>
 
-          <Row>
+          <Row className="mb-3">
             <Col>
               <Check {...formElement.accountTypeChecking} />
               <Check {...formElement.accountTypeSaving} />
             </Col>
           </Row>
           <hr />
-          <p>
-            <FormattedMessage {...messages.addBankMessage} />
-          </p>
+          <div>
+            <Text {...messages.addBankMessage} />
+          </div>
         </Modal.Body>
-        {console.log(errors)}
         <Modal.Footer>
           <Button variant="secondary" onClick={props.onHide}>
             Close
           </Button>
           <Button variant="primary" type="submit" name="submit">
-            <FormattedMessage {...messages.addBankSubmit} />
+            <Text {...messages.addBankSubmit} />
           </Button>
         </Modal.Footer>
       </Form>

@@ -1,15 +1,14 @@
 /*
  * Bank List
  */
-import React, { useContext } from "react";
 import { Row, Col } from "react-bootstrap";
 
-import { BankAccountContext } from "../bankAccount-context";
-import BankItem from "../BankItem/bankItem";
+import { useBanks } from 'api/bank/bank.store';
+import BankItem from "./BankItem/bankItem";
 
-export default function BankList(props) {
-  const { bankData } = useContext(BankAccountContext);
-  let bankList = [];
+export default function BankList(props: any) {
+  const { bankData } = useBanks(false);
+  let bankList:any[]|any = [];
 
   if (bankData === null) {
     bankList = (
@@ -23,7 +22,7 @@ export default function BankList(props) {
     for (const [key, value] of Object.entries(bankData)) {
       bankList.push(
         <Col xl={3} lg={4} md={6} key={key}>
-          <BankItem bankitem={value} keyItem={key} />{" "}
+          <BankItem bankitem={value} keyItem={key} />
           {/*TODO: if can remove bankitem */}
         </Col>
       );
