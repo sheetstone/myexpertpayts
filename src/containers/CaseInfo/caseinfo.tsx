@@ -11,8 +11,9 @@ import AddNewCase from "./AddNewCase/addNewCase";
 import CasesList from "./CasesList/caseslist";
 import classes from "./caseinfo.module.scss";
 import messages from "./messages";
+import { CaseContextProvider } from "api/case/case.store";
 
-export default function CaseInfo(props:any) {
+export default function CaseInfo(props: any) {
   return (
     <article className={classes.caseinfobg}>
       <Helmet>
@@ -24,11 +25,13 @@ export default function CaseInfo(props:any) {
           <FormattedMessage {...messages.header} />
         </h1>
         <hr />
-        <Routes>
-          <Route path="" element={<CasesList />} />
-          <Route path="addnewcase" element={<AddNewCase />} />
-          <Route path="editcase" element={<AddNewCase />} />
-        </Routes>
+        <CaseContextProvider>
+          <Routes>
+            <Route path="" element={<CasesList />} />
+            <Route path="addnewcase" element={<AddNewCase />} />
+            <Route path="editcase" element={<AddNewCase />} />
+          </Routes>
+        </CaseContextProvider>
       </Container>
     </article>
   );

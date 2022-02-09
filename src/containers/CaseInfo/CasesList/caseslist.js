@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet";
 
 import { Row, Col, Table, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { getCases, deleteCase } from "api/case/case.api";
+import { useCase } from "api/case/case.store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import LoadingIndicator from "components/UI/LoadingIndicator/LoadingIndicator";
@@ -16,31 +16,22 @@ import classes from "./caseslist.module.scss";
 
 const header = ["Case Number", "NCP Name", "Children Name", "Action"];
 
-const CasesList = (props) => {
-  const [cases, setCases] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+const CasesList = () => {
+  const {caseData, loadCase, deleteCase } = useCase([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    reload();
-  }, []);
-
-  const reload = () => {
-    getCases()
-      .then((res) => {
-        setCases(res);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
+  useEffect(()=>{
+    if (caseData && caseData.length === 0){
+      setIsLoading(true);
+      loadCase().then(stat=>{
+        if(stat.success){
+          setIsLoading(false);
+        }
       });
-  };
-
-  const casesListRow = [];
-  const childColWidth = {
-    width: "446px", //TODO: responsive design for this value.
-  };
+    }
+  }, [])
 
   const onEditClicked = (key, item, e) => {
     navigate("editcase", {state:{
@@ -52,48 +43,55 @@ const CasesList = (props) => {
   const onDeleteClicked = async (key) => {
     console.log("trying to delete", key);
     await deleteCase(key);
-    await reload();
+    await loadCase();
   };
 
-  for (const [key, item] of Object.entries(cases)) {
-    const { caseNumber, ncpName, children } = item;
-    casesListRow.push(
-      <tr key={key}>
-        <td>{caseNumber}</td>
-        <td>{ncpName}</td>
-        <td className={classes.childrenCol}>
-          <div className={classes.childrenWrap} style={childColWidth}>
-            {children.join(", ")}
-          </div>
-        </td>
-        <td>
-          <Button
-            variant="link"
-            size="sm"
-            onClick={(e) => onEditClicked(key, item, e)}
-          >
-            Edit
-          </Button>
-          <Confirm
-            title="Delete action Confirmation"
-            description="Are you sure to delete this case?"
-          >
-            {(confirm) => (
-              <Button
-                variant="link"
-                size="sm"
-                onClick={(e) => confirm(() => onDeleteClicked(key), e)}
-              >
-                Delete
-              </Button>
-            )}
-          </Confirm>
-        </td>
-      </tr>
-    );
+  const CasesListRow = () =>{
+    const casesListRow = [];
+    const childColWidth = {
+      width: "446px", //TODO: responsive design for this value.
+    };
+    for (const [key, item] of Object.entries(caseData)) {
+      const { caseNumber, ncpName, children } = item;
+      casesListRow.push(
+        <tr key={key}>
+          <td>{caseNumber}</td>
+          <td>{ncpName}</td>
+          <td className={classes.childrenCol}>
+            <div className={classes.childrenWrap} style={childColWidth}>
+              {children.join(", ")}
+            </div>
+          </td>
+          <td>
+            <Button
+              variant="link"
+              size="sm"
+              onClick={(e) => onEditClicked(key, item, e)}
+            >
+              Edit
+            </Button>
+            <Confirm
+              title="Delete action Confirmation"
+              description="Are you sure to delete this case?"
+            >
+              {(confirm) => (
+                <Button
+                  variant="link"
+                  size="sm"
+                  onClick={(e) => confirm(() => onDeleteClicked(key), e)}
+                >
+                  Delete
+                </Button>
+              )}
+            </Confirm>
+          </td>
+        </tr>
+      );
+    }
+    return casesListRow;
   }
 
-  const CasesListEle = () => (
+  const CasesListTable = () => (
     <>
       <Row>
         <Col>
@@ -116,7 +114,7 @@ const CasesList = (props) => {
                 ))}
               </tr>
             </thead>
-            <tbody>{casesListRow}</tbody>
+            <tbody><CasesListRow /></tbody>
           </Table>
         </Col>
       </Row>
@@ -131,7 +129,7 @@ const CasesList = (props) => {
       </Helmet>
 
       {isLoading && <LoadingIndicator />}
-      {!isLoading && <CasesListEle />}
+      {!isLoading && <CasesListTable />}
     </article>
   );
 };

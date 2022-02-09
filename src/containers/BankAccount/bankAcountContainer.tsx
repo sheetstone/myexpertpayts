@@ -22,7 +22,7 @@ const BankAccountContainer = (props:any) => {
         }
       });
     }
-  }, [bankData])
+  }, [])
 
   return (
     <>

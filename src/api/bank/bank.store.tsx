@@ -21,13 +21,12 @@ export interface BankFormType {
 export const rawBanksData$ = new BehaviorSubject<Bank[]>([]);
 
 export const useBanks = (inital: any) => {
-  //const [bankData, setBankData] = useState<any>([]);
   const [error, setError] = useState<any>([]);
   const [showEditBank, setShowEditBank] = useState<boolean>(false);
   const bankData = useObservableState<any>(rawBanksData$, []);
 
   async function loadBank() {
-    console.log("Called reload");
+    console.log("Bank load Called");
     try {
       const result = await getBanks();
       rawBanksData$.next(result);
@@ -40,7 +39,6 @@ export const useBanks = (inital: any) => {
   
   return {
     bankData,
-    rawBanksData$: rawBanksData$,
     showEditBank,
     error,
     toggleEditBank(open: boolean) {
