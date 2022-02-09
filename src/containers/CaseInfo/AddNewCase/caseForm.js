@@ -33,8 +33,8 @@ export const formCreator = (register, formState, initalState, errors) => {
       name: 'caseNumber',
       ref: register,
       placeholder: 'Case Number',
-      isValid: formState.touched.caseNumber && !errors.caseNumber,
-      isInvalid: formState.touched.caseNumber && errors.caseNumber,
+      isValid: true,//formState.touched.caseNumber, //&& errors && !errors.caseNumber,
+      isInvalid: false,//formState.touched.caseNumber, //&& errors && errors.caseNumber,
       defaultValue: initalState && initalState.caseNumber,
       disabled: initalState && true,
       tooltip: {

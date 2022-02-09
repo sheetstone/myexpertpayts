@@ -21,7 +21,7 @@ const CasesList = (props) => {
   const [cases, setCases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     reload();
@@ -44,10 +44,10 @@ const CasesList = (props) => {
   };
 
   const onEditClicked = (key, item, e) => {
-    history("editcase", {
+    navigate("editcase", {state:{
       key: key,
-      case: item,
-    });
+      case: {...item},
+    }});
   };
 
   const onDeleteClicked = async (key) => {

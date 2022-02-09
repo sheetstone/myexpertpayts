@@ -9,9 +9,9 @@ import BankList from './BankList/bankList'
 import EditBankAccount from './EditBankForm/editBankAccount'
 import { useBanks } from 'api/bank/bank.store'
 
-const BankAccountContainer = props => {
-  const [isLoading, setIsLoading, error] = useState(true);
-  const { showEditBank, toggleEditBank, loadBank } = useBanks();
+const BankAccountContainer = (props:any) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const { showEditBank, toggleEditBank, loadBank, error } = useBanks([]);
 
   useEffect(()=>{
     loadBank().then(stat=>{
@@ -23,7 +23,7 @@ const BankAccountContainer = props => {
 
   return (
     <>
-      <Button variant='primary' size='md' onClick={() => toggleEditBank(true)}>
+      <Button variant='primary' onClick={() => toggleEditBank(true)}>
         <FontAwesomeIcon icon={faPlus} color='#ffffff' />
         &nbsp;New Bank Account
       </Button>

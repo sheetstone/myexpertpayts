@@ -12,16 +12,28 @@ import { formSettings, formCreator } from "./caseForm.js";
 import SuccessModal from "components/UI/SuccessModal/successModal";
 import CaseInput from "./CaseInput/caseInput";
 import equal from "deep-equal";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AddNewCase = (props) => {
-  const updateKey = props.location.state && props.location.state.key;
-  const initalState = props.location.state && props.location.state.case;
+  const location = useLocation();
+  const navigation = useNavigate();
+  const updateKey = location && location.state && location.state.key;
+  const initalState = location && location.state && location.state.case;
 
-  const { register, handleSubmit, errors, formState, reset } = useForm(
-    formSettings
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    formState,
+    reset,
+  } = useForm(formSettings);
+
+  const { caseNumber, ncpName, initalChildrenList } = formCreator(
+    register,
+    formState,
+    initalState,
+    errors
   );
-
-  const { caseNumber, ncpName, initalChildrenList } = formCreator(register,formState,initalState,errors);
   const [childrenName, setChildrenName] = useState(initalChildrenList);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -86,7 +98,7 @@ const AddNewCase = (props) => {
   };
 
   const gotoCaseInfo = () => {
-    props.history.push("/caseinfo");
+    navigation("/caseinfo");
   };
 
   const resetForm = () => {
@@ -142,7 +154,9 @@ const AddNewCase = (props) => {
       <Row>
         <Col xs={6}>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            {formElementNode()}
+            {
+              //formElementNode()
+            }
             <Button variant="primary" type="submit">
               Save
             </Button>
@@ -153,8 +167,8 @@ const AddNewCase = (props) => {
               show={showSuccess}
               noed={gotoCaseInfo}
               yesed={resetForm}
-              title='Case Added Successful'
-              body='Do you want to add more cases?'
+              title="Case Added Successful"
+              body="Do you want to add more cases?"
             />
           </Form>
         </Col>

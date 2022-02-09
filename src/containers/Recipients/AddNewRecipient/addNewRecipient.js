@@ -15,7 +15,7 @@ import { formSettings, formCreator } from './recipientForm.js'
 import classes from "./addNewRecipient.module.scss";
 
 export default function AddNewRecipient (props) {
-  const { register, handleSubmit, errors, formState, reset } = useForm(
+  const { register, handleSubmit, formState: { errors }, formState, reset } = useForm(
     formSettings
   )
   const [cases, setCases] = useState([])

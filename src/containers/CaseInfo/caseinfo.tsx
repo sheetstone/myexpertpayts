@@ -12,7 +12,7 @@ import CasesList from "./CasesList/caseslist";
 import classes from "./caseinfo.module.scss";
 import messages from "./messages";
 
-export default function CaseInfo(props) {
+export default function CaseInfo(props:any) {
   return (
     <article className={classes.caseinfobg}>
       <Helmet>
@@ -25,9 +25,9 @@ export default function CaseInfo(props) {
         </h1>
         <hr />
         <Routes>
-          <Route exact path="" element={<CasesList />} />
-          <Route path=":addnewcase" element={<AddNewCase />} />
-          <Route path=":editcase" element={<AddNewCase />} />
+          <Route path="" element={<CasesList />} />
+          <Route path="addnewcase" element={<AddNewCase />} />
+          <Route path="editcase" element={<AddNewCase />} />
         </Routes>
       </Container>
     </article>
