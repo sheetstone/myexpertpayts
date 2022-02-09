@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { Row, Col, Button, Form } from "react-bootstrap";
 
-import { addCase, updateCase } from "api/caseApi.js";
+import { addCase, updateCase } from "api/case/case.api";
 import { formSettings, formCreator } from "./caseForm.js";
 
 import SuccessModal from "components/UI/SuccessModal/successModal";

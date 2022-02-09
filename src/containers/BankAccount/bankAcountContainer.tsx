@@ -10,16 +10,19 @@ import EditBankAccount from './EditBankForm/editBankAccount'
 import { useBanks } from 'api/bank/bank.store'
 
 const BankAccountContainer = (props:any) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const { showEditBank, toggleEditBank, loadBank, error } = useBanks([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const { bankData, showEditBank, toggleEditBank, loadBank, error } = useBanks([]);
 
   useEffect(()=>{
-    loadBank().then(stat=>{
-      if(stat.success){
-        setIsLoading(false);
-      }
-    });
-  }, [])
+    if (bankData && bankData.length === 0){
+      setIsLoading(true);
+      loadBank().then(stat=>{
+        if(stat.success){
+          setIsLoading(false);
+        }
+      });
+    }
+  }, [bankData])
 
   return (
     <>

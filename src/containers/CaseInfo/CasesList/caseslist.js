@@ -6,10 +6,9 @@ import { Helmet } from "react-helmet";
 
 import { Row, Col, Table, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { getCases } from "api/caseApi.js";
+import { getCases, deleteCase } from "api/case/case.api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { deleteCase } from "api/caseApi.js";
 import LoadingIndicator from "components/UI/LoadingIndicator/LoadingIndicator";
 import Confirm from "components/UI/Confirm/Confirm";
 

@@ -11,7 +11,7 @@ const bankList = [
 /*
  * Resolve should be async function, get data from API, to search the bank name with the right routine number
  */
-export default async function resolveBankName(data) {
+export default async function resolveBankName(data:string) {
   const l = bankList.length;
   const rand = Math.floor(Math.random() * l);
   return bankList[rand];
