@@ -41,7 +41,9 @@ export const useCase = (inital: any) => {
     caseData,
     loadCase,
     error,
-    deleteCase
+    deleteCase,
+    addCase,
+    updateCase,
   };
 };
 
