@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet";
 
 import { Row, Col, Table, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useCase } from "api/case/case.store";
+import { useCase, Case } from "api/case/case.store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import LoadingIndicator from "components/UI/LoadingIndicator/LoadingIndicator";
@@ -33,25 +33,26 @@ const CasesList = () => {
     }
   }, [])
 
-  const onEditClicked = (key, item, e) => {
+  const onEditClicked = (key:string, item:Case, e:React.MouseEvent<HTMLElement, MouseEvent>) => {
     navigate("editcase", {state:{
       key: key,
       case: {...item},
     }});
   };
 
-  const onDeleteClicked = async (key) => {
+  const onDeleteClicked = async (key:string) => {
     console.log("trying to delete", key);
     await deleteCase(key);
     await loadCase();
   };
 
-  const CasesListRow = () =>{
+  const CasesListRow = () => {
     const casesListRow = [];
     const childColWidth = {
       width: "446px", //TODO: responsive design for this value.
     };
-    for (const [key, item] of Object.entries(caseData)) {
+    const collection:[string, Case][] = Object.entries(caseData);
+    for (const [key, item] of collection) {
       const { caseNumber, ncpName, children } = item;
       casesListRow.push(
         <tr key={key}>
@@ -74,7 +75,7 @@ const CasesList = () => {
               title="Delete action Confirmation"
               description="Are you sure to delete this case?"
             >
-              {(confirm) => (
+              {(confirm:Function) => (
                 <Button
                   variant="link"
                   size="sm"
@@ -96,7 +97,7 @@ const CasesList = () => {
       <Row>
         <Col>
           <Link to="addnewcase">
-            <Button variant="primary" size="md">
+            <Button variant="primary">
               <FontAwesomeIcon icon={faPlus} color="#ffffff" />
               &nbsp;Add New case
             </Button>
@@ -114,7 +115,7 @@ const CasesList = () => {
                 ))}
               </tr>
             </thead>
-            <tbody><CasesListRow /></tbody>
+            <tbody>{CasesListRow()}</tbody>
           </Table>
         </Col>
       </Row>
