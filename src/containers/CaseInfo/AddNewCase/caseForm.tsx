@@ -1,21 +1,27 @@
-import React from 'react'
 import * as yup from 'yup'
 import validCaseNumber from 'utils/validCaseNumber'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-yup.addMethod(yup.string, 'isCaseNumber', validCaseNumber)
+import { Child } from "api/case/case.store";
 
-export const schema = yup.object().shape({
+declare module 'yup' {
+  interface StringSchema {
+    caseNumberString(msg?: string) : this;
+  }
+}
+
+yup.addMethod<yup.StringSchema>(yup.string, 'caseNumberString', validCaseNumber)
+
+export const schema = yup.object().shape({ 
   caseNumber: yup
     .string()
     .required('Case Number is required')
     .min(6, 'Case Number is too short')
     .max(15, 'Case Number is too long')
-    .test('isCaseNumber', 'Not a valid Case Number', validCaseNumber),
+    .caseNumberString('Not a valid Case Number'),
   ncpName: yup.string(),
   childName: yup.string()
-})
-
+}) 
 export const formSettings = {
   mode: 'onBlur',
   reValidateMode: 'onChange',
@@ -25,16 +31,18 @@ export const formSettings = {
   shouldUnregister: false
 }
 
-
-export const formCreator = (register, formState, initalState, errors) => {
+/*
+* Add Validation into Case add form
+*/
+export const formCreator = (register:Function, formState:any, initalState:any, errors:any) => {
   return {
     caseNumber: {
       type: 'text',
       name: 'caseNumber',
-      ref: register,
+      ...register('caseNumber'),
       placeholder: 'Case Number',
-      isValid: true,//formState.touched.caseNumber, //&& errors && !errors.caseNumber,
-      isInvalid: false,//formState.touched.caseNumber, //&& errors && errors.caseNumber,
+      isValid: formState.touchedFields.caseNumber && errors && !errors.caseNumber,
+      isInvalid: formState.touchedFields.caseNumber && errors && errors.caseNumber,
       defaultValue: initalState && initalState.caseNumber,
       disabled: initalState && true,
       tooltip: {
@@ -55,17 +63,16 @@ export const formCreator = (register, formState, initalState, errors) => {
     ncpName: {
       type: 'text',
       name: 'ncpName',
-      ref: register,
+      ...register('ncpName'),
       defaultValue: initalState && initalState.ncpName,
       placeholder: 'NCP Name'
     },
     initalChildrenList: (() => {
       return initalState
-        ? initalState.children.map(child => {
+        ? initalState.children.map((child:Child, index:number) => {
             return {
               type: 'text',
-              name: 'childname',
-              ref: register,
+              ...register(`children${index}`),
               defaultValue: child,
               placeholder: 'Child Name'
             }
@@ -73,8 +80,7 @@ export const formCreator = (register, formState, initalState, errors) => {
         : [
             {
               type: 'text',
-              name: 'childname',
-              ref: register,
+              ...register(`children0`),
               placeholder: 'Child Name'
             }
           ]

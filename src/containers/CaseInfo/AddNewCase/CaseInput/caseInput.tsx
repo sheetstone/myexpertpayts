@@ -4,6 +4,17 @@ import { Form } from "react-bootstrap";
 import FormValidationError from "components/Form/formValidationError/formValidationError";
 import Popoverbox from "components/UI/popover/Popover";
 import classes from "../addNewCase.module.scss";
+import { string } from "yup";
+
+interface CaseInputType {
+  objkey: string,
+  value: any,
+  errors: any,
+  addChild: Function,
+  removeChild: Function,
+  isTail: Boolean,
+  isChild: Boolean
+}
 
 const CaseInput = ({
   objkey,
@@ -13,22 +24,23 @@ const CaseInput = ({
   removeChild,
   isTail,
   isChild,
-}) => {
+}:CaseInputType) => {
+
   if (isChild) {
     return (
       <Form.Group
         controlId={objkey}
         className={isTail ? classes.indentTail : classes.indent}
       >
-        <Form.Control {...value} name={objkey} />
+        <Form.Control {...value} name={objkey} className={classes.caseChildInput} />
         <button
-          onClick={addChild}
+          onClick={()=>addChild()}
           className={classes.addBtn}
           title="Add child"
           type="button"
         ></button>
         <button
-          onClick={removeChild}
+          onClick={()=>removeChild()}
           className={classes.removeBtn}
           title="Delete"
           type="button"
@@ -38,7 +50,7 @@ const CaseInput = ({
     );
   }
   return (
-    <Form.Group controlId={objkey}>
+    <Form.Group controlId={objkey} className={classes.caseInputGroup}>
       <Form.Control {...value} />
       <FormValidationError formEle={objkey} errors={errors} />
       {value.tooltip && !value.isValid ? (

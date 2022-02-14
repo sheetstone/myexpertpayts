@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { Row, Col, Button, Form } from "react-bootstrap";
 
 import { addCase, updateCase } from "api/case/case.api";
-import { formSettings, formCreator } from "./caseForm.js";
+import { formSettings, formCreator } from "./caseForm";
 
 import SuccessModal from "components/UI/SuccessModal/successModal";
 import CaseInput from "./CaseInput/caseInput";
@@ -25,8 +25,9 @@ const AddNewCase = (props) => {
     handleSubmit,
     formState: { errors },
     formState,
-    reset,
+    reset
   } = useForm(formSettings);
+
 
   const { caseNumber, ncpName, initalChildrenList } = formCreator(
     register,
@@ -41,8 +42,7 @@ const AddNewCase = (props) => {
     setChildrenName((prevEle) => {
       return prevEle.concat({
         type: "text",
-        name: "childname",
-        ref: register,
+        ...register(`children${prevEle.length}`),
         placeholder: "Child Name",
       });
     });
@@ -78,7 +78,7 @@ const AddNewCase = (props) => {
     );
     formArray.push(
       childrenName.map((item, i, arr) => {
-        const kidId = `childName${i}`;
+        const kidId = `children${i}`;
         return (
           <CaseInput
             objkey={kidId}
@@ -106,18 +106,16 @@ const AddNewCase = (props) => {
     reset({
       caseNumber: "",
       ncpName: "",
-      childName0: "",
-      childName: "",
+      children0: ""
     });
     setShowSuccess(false);
-    // console.log(formState);
   };
 
   const onSubmit = (data) => {
     const result = {};
     result.children = [];
     for (const [key, value] of Object.entries(data)) {
-      if (key.includes("childName")) {
+      if (key.includes("children")) {
         result.children.push(value);
       } else {
         result[key] = value;
@@ -155,7 +153,7 @@ const AddNewCase = (props) => {
         <Col xs={6}>
           <Form onSubmit={handleSubmit(onSubmit)}>
             {
-              //formElementNode()
+              formElementNode()
             }
             <Button variant="primary" type="submit">
               Save
