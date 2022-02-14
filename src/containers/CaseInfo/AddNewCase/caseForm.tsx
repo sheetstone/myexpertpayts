@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import validCaseNumber from 'utils/validCaseNumber'
+import validCaseNumberSchema from 'utils/validCaseNumber'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Child } from "api/case/case.store";
@@ -10,7 +10,7 @@ declare module 'yup' {
   }
 }
 
-yup.addMethod<yup.StringSchema>(yup.string, 'caseNumberString', validCaseNumber)
+yup.addMethod<yup.StringSchema>(yup.string, 'caseNumberString', validCaseNumberSchema)
 
 export const schema = yup.object().shape({ 
   caseNumber: yup

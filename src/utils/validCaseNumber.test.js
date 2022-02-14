@@ -1,4 +1,4 @@
-import validCaseNumber from "./validCaseNumber";
+import {validCaseNumber} from "./validCaseNumber";
 
 /*
 Case number logic: 
