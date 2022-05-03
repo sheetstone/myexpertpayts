@@ -7,13 +7,13 @@ import classes from "../addNewCase.module.scss";
 import { string } from "yup";
 
 interface CaseInputType {
-  objkey: string,
-  value: any,
-  errors: any,
-  addChild: Function,
-  removeChild: Function,
-  isTail: Boolean,
-  isChild: Boolean
+  objkey: string;
+  value?: any;
+  errors?: any;
+  addChild?: Function;
+  removeChild?: Function;
+  isTail?: Boolean;
+  isChild?: Boolean;
 }
 
 const CaseInput = ({
@@ -24,23 +24,26 @@ const CaseInput = ({
   removeChild,
   isTail,
   isChild,
-}:CaseInputType) => {
-
-  if (isChild) {
+}: CaseInputType) => {
+  if (isChild && addChild && removeChild) {
     return (
       <Form.Group
         controlId={objkey}
         className={isTail ? classes.indentTail : classes.indent}
       >
-        <Form.Control {...value} name={objkey} className={classes.caseChildInput} />
+        <Form.Control
+          {...value}
+          name={objkey}
+          className={classes.caseChildInput}
+        />
         <button
-          onClick={()=>addChild()}
+          onClick={() => addChild()}
           className={classes.addBtn}
           title="Add child"
           type="button"
         ></button>
         <button
-          onClick={()=>removeChild()}
+          onClick={() => removeChild()}
           className={classes.removeBtn}
           title="Delete"
           type="button"

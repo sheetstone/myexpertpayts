@@ -1,33 +1,52 @@
 /*
  * Add New Cases
  */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { Row, Col, Button, Form } from "react-bootstrap";
-
-import { addCase, updateCase } from "api/case/case.api";
-import { formSettings, formCreator } from "./caseForm";
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useCase, Case, CaseFormType } from "api/case/case.store";
+import { formCreator, schema } from "./caseForm";
 
 import SuccessModal from "components/UI/SuccessModal/successModal";
 import CaseInput from "./CaseInput/caseInput";
-import equal from "deep-equal";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Location } from "react-router-dom";
 
-const AddNewCase = (props) => {
-  const location = useLocation();
+export interface LocationState {
+  key: string;
+  case: Case; 
+}
+
+const AddNewCase = () => {
+  const location: Location = useLocation();
   const navigation = useNavigate();
-  const updateKey = location && location.state && location.state.key;
-  const initalState = location && location.state && location.state.case;
+  const updateKey = (location.state as LocationState)?.key;
+  const initalState = (location.state as LocationState)?.case;
+  const { addCase, updateCase } = useCase([]);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     formState,
-    reset
-  } = useForm(formSettings);
-
+    control,
+    reset,
+  } = useForm<CaseFormType>({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    resolver: yupResolver(schema),
+    criteriaMode: 'firstError',
+    shouldFocusError: true,
+    shouldUnregister: false,
+    defaultValues:{
+      children:['sss']
+    }
+  });
+  const { fields, append, remove } = useFieldArray<CaseFormType>({
+    name: "children",
+    control
+  });
 
   const { caseNumber, ncpName, initalChildrenList } = formCreator(
     register,
@@ -35,10 +54,24 @@ const AddNewCase = (props) => {
     initalState,
     errors
   );
-  const [childrenName, setChildrenName] = useState(initalChildrenList);
+  //const [childrenName, setChildrenName] = useState(initalChildrenList);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const addChildHandler = (e) => {
+  /*useEffect(() => {
+    if (initalState) {
+      const childrenObj: any = {};
+      initalState.children.map((child, i) => {
+        childrenObj["children" + i] = child;
+      });
+      reset({
+        caseNumber: initalState.caseNumber,
+        ncpName: initalState.ncpName,
+        ...childrenObj,
+      });
+    }
+  }, [reset]);*/
+
+  /*const addChildHandler = () => {
     setChildrenName((prevEle) => {
       return prevEle.concat({
         type: "text",
@@ -48,7 +81,7 @@ const AddNewCase = (props) => {
     });
   };
 
-  const removeChildHandler = (e, index) => {
+  const removeChildHandler = (index: number) => {
     setChildrenName((prevEle) => {
       if (prevEle.length === 1) {
         return prevEle;
@@ -56,7 +89,7 @@ const AddNewCase = (props) => {
       prevEle.splice(index, 1);
       return [...prevEle];
     });
-  };
+  };*/
 
   const formElementNode = () => {
     const formArray = [];
@@ -77,8 +110,18 @@ const AddNewCase = (props) => {
       />
     );
     formArray.push(
+      fields.map((field, index) => {
+        return (
+          <input 
+          key={field.id}
+            {...register(`children.${index}`)}
+          />
+        )
+      })
+    )
+    /*formArray.push(
       childrenName.map((item, i, arr) => {
-        const kidId = `children${i}`;
+
         return (
           <CaseInput
             objkey={kidId}
@@ -87,13 +130,12 @@ const AddNewCase = (props) => {
             value={item}
             errors={errors}
             key={kidId}
-            addChild={addChildHandler}
-            removeChild={() => removeChildHandler(i)}
+            addChild={()=>append({''})}
+            removeChild={() => remove(i)}
           />
         );
       })
-    );
-
+    );*/
     return formArray;
   };
 
@@ -102,40 +144,31 @@ const AddNewCase = (props) => {
   };
 
   const resetForm = () => {
-    setChildrenName(initalChildrenList);
+    //setChildrenName(initalChildrenList);
     reset({
       caseNumber: "",
       ncpName: "",
-      children0: ""
+      children: [],
     });
     setShowSuccess(false);
   };
 
-  const onSubmit = (data) => {
-    const result = {};
-    result.children = [];
-    for (const [key, value] of Object.entries(data)) {
-      if (key.includes("children")) {
-        result.children.push(value);
-      } else {
-        result[key] = value;
-      }
-    }
-
+  const onSubmit: SubmitHandler<CaseFormType> = (data) => {
     if (updateKey) {
       // Update Exist Case
-      if (equal(result, initalState)) {
+      console.log(formState.touchedFields);
+      if (Object.keys(formState.touchedFields).length === 0) {
         console.log("no need update database");
         gotoCaseInfo();
       } else {
-        updateCase(updateKey, result).then((res) => {
+        updateCase(updateKey, data).then((res) => {
           // TODO: add a modal to comfirmation
           gotoCaseInfo();
         });
       }
     } else {
       // Add new case
-      addCase(result).then((res) => {
+      addCase(data).then((res) => {
         // console.log('Add successful',res);
         // TODO: add a modal to comfirmation
         setShowSuccess(true);
@@ -152,14 +185,15 @@ const AddNewCase = (props) => {
       <Row>
         <Col xs={6}>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            {
-              formElementNode()
-            }
+            {formElementNode()}
             <Button variant="primary" type="submit">
               Save
             </Button>
             <Button variant="link" type="button" onClick={gotoCaseInfo}>
               Cancel
+            </Button>
+            <Button variant="link" type="button" onClick={()=>append("")}>
+              Add
             </Button>
             <SuccessModal
               show={showSuccess}

@@ -1,9 +1,7 @@
 import * as yup from 'yup'
 import validCaseNumberSchema from 'utils/validCaseNumber'
-import { yupResolver } from '@hookform/resolvers/yup'
-
-import { Child } from "api/case/case.store";
-
+import { FieldErrors, FieldValues, FieldArrayWithId } from "react-hook-form";
+import { Case } from "api/case/case.store";
 declare module 'yup' {
   interface StringSchema {
     caseNumberString(msg?: string) : this;
@@ -22,19 +20,11 @@ export const schema = yup.object().shape({
   ncpName: yup.string(),
   childName: yup.string()
 }) 
-export const formSettings = {
-  mode: 'onBlur',
-  reValidateMode: 'onChange',
-  resolver: yupResolver(schema),
-  criteriaMode: 'firstErrorDetected',
-  shouldFocusError: true,
-  shouldUnregister: false
-}
 
 /*
 * Add Validation into Case add form
 */
-export const formCreator = (register:Function, formState:any, initalState:any, errors:any) => {
+export const formCreator = (register:Function, formState:FieldValues, initalState:Case, errors:FieldErrors, fields?:FieldArrayWithId) => {
   return {
     caseNumber: {
       type: 'text',
@@ -68,22 +58,7 @@ export const formCreator = (register:Function, formState:any, initalState:any, e
       placeholder: 'NCP Name'
     },
     initalChildrenList: (() => {
-      return initalState
-        ? initalState.children.map((child:Child, index:number) => {
-            return {
-              type: 'text',
-              ...register(`children${index}`),
-              defaultValue: child,
-              placeholder: 'Child Name'
-            }
-          })
-        : [
-            {
-              type: 'text',
-              ...register(`children0`),
-              placeholder: 'Child Name'
-            }
-          ]
+      return []
     })()
   }
 }

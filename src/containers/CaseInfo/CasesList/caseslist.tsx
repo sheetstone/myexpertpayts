@@ -58,11 +58,11 @@ const CasesList = () => {
         <tr key={key}>
           <td>{caseNumber}</td>
           <td>{ncpName}</td>
-          <td className={classes.childrenCol}>
+          {children&&<td className={classes.childrenCol}>
             <div className={classes.childrenWrap} style={childColWidth}>
               {children.join(", ")}
             </div>
-          </td>
+          </td>}
           <td>
             <Button
               variant="link"

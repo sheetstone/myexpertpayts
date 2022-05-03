@@ -1,23 +1,21 @@
 import { createContext, useState } from "react";
+import { IObjectKeys } from "api/iType";
 import { BehaviorSubject } from "rxjs";
 import { getCases, deleteCase, addCase, updateCase } from "./case.api";
 import { useObservableState } from "observable-hooks";
 
-export interface Child {
-  childName: string;
-}
-export interface Case {
+export interface Case extends IObjectKeys{
   caseNumber: string;
-  ncpName: string;
-  children: Child[];
+  ncpName?: string;
+  children?: string[];
 }
 
 export interface CaseFormType {
-  rountingNumber: string;
-  accountNumber: string;
-  confirmAccountNumber: string;
-  accountType: "checking" | "saving";
+  caseNumber: string,
+  ncpName?: string,
+  children?: string[]|any
 }
+
 
 export const rawCaseData$ = new BehaviorSubject<Case[]>([]);
 
