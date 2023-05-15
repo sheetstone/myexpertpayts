@@ -1,6 +1,5 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
-
 import { Container, Row } from "react-bootstrap";
 
 import messages from "./messages";
