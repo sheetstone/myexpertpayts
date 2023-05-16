@@ -20,7 +20,7 @@ export default defineMessages({
   },
   contactInfoTel: {
     id: `${scope}.contactInfo.tel`,
-    defaultMessage: "512-775-2142",
+    defaultMessage: "1-512-775-2142",
   },
   contactInfoEmail: {
     id: `${scope}.contactInfo.email`,

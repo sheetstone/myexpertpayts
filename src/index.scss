@@ -1,1 +1,10 @@
 @import "~globalStyle/custom.scss";
+
+
+/* TODO: Move this into \src\components\Nav\ */
+
+.nav-link.active{
+    &::after {
+        transform: scaleY(1);
+      }
+}
