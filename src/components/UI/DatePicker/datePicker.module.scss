@@ -8,7 +8,7 @@
 }
 .calendarGroup {
   border: 1px solid #339999;
-  padding: 0.5em 0.4em 0.3em 0.4em;
+  padding: 0.4em 0.5em 0.3em 0.4em;
   border-radius: 0px;
   width: 165px;
   float: left;
@@ -31,13 +31,17 @@
   color: #333;
   display: block;
   margin-bottom: 0;
+  text-indent: 3px;
+  height: 1.2em;
 }
 
-.datapickerinput {
+.datepickerinput {
   border: 0px none;
   font-size: 16px;
   color: #666;
   background: transparent;
+  height: 1em;
+  padding: 0px 4px;
 
   &:focus {
     outline: none;

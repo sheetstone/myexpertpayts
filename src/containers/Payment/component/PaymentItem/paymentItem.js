@@ -11,15 +11,6 @@ function labelActive() {
 function statusCheck(status) {
   return <span className={style.labelVerification}>Require Verification</span>;
 }
-/*
-PaymentDate{
-  name,
-  date,
-  status,
-  bank,
-  caseNumber
-}
-*/
 
 export default function PaymentItem(props) {
   const { paymentData } = props;

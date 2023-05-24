@@ -16,7 +16,7 @@ import PaymentList from "./component/PaymentList/paymentList";
 import messages from "./messages";
 import style from "./payment.module.scss";
 
-export default function Payment(props) {
+export default function Payment(props:any) {
   const [startDate, setStartDate] = useState(moment().subtract(3, 'months'));
   const [endDate, setEndDate] = useState(moment());
   const [isLoading, setIsLoading] = useState(true);
@@ -37,7 +37,8 @@ export default function Payment(props) {
     });
   }
 
-  const handleDateChange = (val, name) => {
+  const handleDateChange = (val:any, name:string):void => {
+    console.log(name);
     if (name === "startData") {
       setStartDate(val)
     } else {
@@ -72,11 +73,11 @@ export default function Payment(props) {
           onValueChange={handleDateChange}
         />
 
-        <Button variant="primary" size="md">
+        <Button variant="primary" size="sm">
           Send Money
         </Button>
 
-        <Button variant="primary" size="md">
+        <Button variant="primary" size="sm">
           Request Money
         </Button>
         <hr />
@@ -85,6 +86,5 @@ export default function Payment(props) {
         {!isLoading && <PaymentList paymentData={paymentData} />}
       </Container>
     </article>
-
   )
 } 

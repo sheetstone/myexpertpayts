@@ -4,17 +4,18 @@ import PropTypes from "prop-types";
 import Calendar from "react-calendar";
 import moment from "moment";
 import classes from "./datePicker.module.scss";
+import 'react-calendar/dist/Calendar.css';
 
 const DatePicker = (props) => {
   const [date, setDate] = useState(new Date(props.value));
   const [showCalendar, setShowCalendar] = useState(false);
   const { name, label, id, value, onValueChange } = props;
-  console.log(name, value)
+  console.log('in Data picker',name, value)
 
   const onChange = (newDate) => {
     setDate(newDate);
     setShowCalendar(false);
-    onValueChange(date, this.props.name);
+    onValueChange(date, name);
   };
 
   const onFocus = (e) => {
@@ -59,7 +60,7 @@ DatePicker.propTypes = {
   label: PropTypes.string,
   id: PropTypes.string,
   value: PropTypes.string,
-  valueChanged: PropTypes.func,
+  onValueChange: PropTypes.func,
 };
 
 export default DatePicker;
