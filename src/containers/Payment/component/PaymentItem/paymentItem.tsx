@@ -1,18 +1,19 @@
 /*
  * Payment Item
  */
-import React from "react";
 import style from "./paymentItem.module.scss";
+import { PaymentInterface } from "api/paymentApi";
 
 function labelActive() {
   return <span className={style.labelActive}>Active</span>;
 }
 
-function statusCheck(status) {
+// To be implemented
+function statusCheck(status?: number) {
   return <span className={style.labelVerification}>Require Verification</span>;
 }
 
-export default function PaymentItem(props) {
+export default function PaymentItem(props: {paymentData:PaymentInterface}) {
   const { paymentData } = props;
   return (
     <li className={style.paymentItem}>

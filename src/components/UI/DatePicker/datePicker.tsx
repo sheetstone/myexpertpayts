@@ -1,31 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 
 import Calendar from "react-calendar";
+import Icon from "components/Icons";
 import moment from "moment";
 import classes from "./datePicker.module.scss";
-import 'react-calendar/dist/Calendar.css';
+import "react-calendar/dist/Calendar.css";
 
-const DatePicker = (props) => {
+const DatePicker = (props: {name: string, label: string, id: string, value: string, onValueChange:Function}) => {
   const [date, setDate] = useState(new Date(props.value));
   const [showCalendar, setShowCalendar] = useState(false);
   const { name, label, id, value, onValueChange } = props;
-  console.log('in Data picker',name, value)
+  const inputRef = useRef(null);
 
-  const onChange = (newDate) => {
+  const onChange = (newDate:any) => {
     setDate(newDate);
     setShowCalendar(false);
     onValueChange(date, name);
   };
 
-  const onFocus = (e) => {
+  const onFocus = () => {
     setShowCalendar(true);
   };
-
-  const onBlur = (e) => {
-    if (!e.currentTarget.parentElement.contains(e.relatedTarget)) {
-      setShowCalendar(false);
-    }
+  const ForusInput = () => {
+    setShowCalendar(!showCalendar);
   };
 
   return (
@@ -43,13 +41,19 @@ const DatePicker = (props) => {
         id={id}
         name={name}
         onFocus={onFocus}
-        onBlur={onBlur}
+        //onBlur={onBlur}
         onChange={onChange}
+        ref={inputRef}
       />
       <Calendar
         onChange={onChange}
-        value={date}
+        value={moment(date).format("MM-DD-YYYY")}
         className={showCalendar ? classes.calendar : classes.hide}
+      />
+      <Icon
+        name="calendar"
+        className={classes.calendarIcon}
+        onClick={ForusInput}
       />
     </div>
   );

@@ -42,9 +42,10 @@
   background: transparent;
   height: 1em;
   padding: 0px 4px;
+  width: 75%;
 
   &:focus {
-    outline: none;
+    outline: 1px solid #339999;
   }
 }
 .show {
@@ -54,8 +55,23 @@
   position: absolute;
   top: 55px;
   left: -1px;
-  max-width: unset;
+  max-width:none !important;
+
 }
 .hide {
   display: none;
+}
+
+.calendarIcon{
+  width: 20px;
+  height: auto;
+  display: block;
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  cursor: pointer;
+
+  svg{
+    color: $primary;
+  }
 }

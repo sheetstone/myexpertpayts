@@ -4,15 +4,14 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { FormattedMessage } from "react-intl";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Dropdown } from "react-bootstrap";
 import LoadingIndicator from "components/UI/LoadingIndicator/LoadingIndicator";
 import DatePicker from "components/UI/DatePicker/datePicker";
 
 import { getPayments } from "api/paymentApi";
 import moment from "moment";
-
 import PaymentList from "./component/PaymentList/paymentList";
-
+import { PaymentInterface } from "api/paymentApi";
 import messages from "./messages";
 import style from "./payment.module.scss";
 
@@ -20,7 +19,7 @@ export default function Payment(props:any) {
   const [startDate, setStartDate] = useState(moment().subtract(3, 'months'));
   const [endDate, setEndDate] = useState(moment());
   const [isLoading, setIsLoading] = useState(true);
-  const [paymentData, setPaymentData] = useState(null);
+  const [paymentData, setPaymentData] = useState<PaymentInterface[]>([]);
 
   useEffect(() => {
     reloadState();
@@ -38,7 +37,6 @@ export default function Payment(props:any) {
   }
 
   const handleDateChange = (val:any, name:string):void => {
-    console.log(name);
     if (name === "startData") {
       setStartDate(val)
     } else {
@@ -72,6 +70,7 @@ export default function Payment(props:any) {
           value={moment(endDate).format('MMMM-DD-YYYY')}
           onValueChange={handleDateChange}
         />
+
 
         <Button variant="primary" size="sm">
           Send Money

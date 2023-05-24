@@ -6,11 +6,12 @@ import { getPayments } from "api/paymentApi";
 import LoadingIndicator from "components/UI/LoadingIndicator/LoadingIndicator";
 import ErrorMessage from "components/UI/errorMessage/ErrorMessage";
 import DashBoard from "./DashBoard/dashBoard";
+import { PaymentInterface } from "api/paymentApi";
 
 import classes from "./accountSummary.module.scss";
 
 const AccountSummary = () => {
-  const [paymentData, setPaymentData] = useState([]);
+  const [paymentData, setPaymentData] = useState<PaymentInterface[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<any>('');
 
