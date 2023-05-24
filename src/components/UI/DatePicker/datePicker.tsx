@@ -8,11 +8,11 @@ import classes from "./datePicker.module.scss";
 import "react-calendar/dist/Calendar.css";
 
 const DatePicker = (props: {name: string, label: string, id: string, value: string, onValueChange:Function}) => {
-  const [date, setDate] = useState(new Date(props.value));
-  const [showCalendar, setShowCalendar] = useState(false);
   const { name, label, id, value, onValueChange } = props;
-  const inputRef = useRef(null);
+  const [date, setDate] = useState(new Date(value));
+  const [showCalendar, setShowCalendar] = useState(false);
 
+  const inputRef = useRef(null);
   const onChange = (newDate:any) => {
     setDate(newDate);
     setShowCalendar(false);
