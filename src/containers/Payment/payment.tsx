@@ -3,14 +3,15 @@
  */
 import DatePicker from "components/UI/DatePicker/datePicker";
 import LoadingIndicator from "components/UI/LoadingIndicator/LoadingIndicator";
+import MultiSelectComponent from "components/UI/MultypleSelect";
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Helmet } from "react-helmet";
 import { FormattedMessage } from "react-intl";
 
-import { PaymentInterface, getPayments } from "api/paymentApi";
+import { PaymentInterface, getPayments } from "api/payment";
 import moment from "moment";
-import PaymentList from "./component/PaymentList/paymentList";
+import PaymentList from "./PaymentList/paymentList";
 import messages from "./messages";
 import style from "./payment.module.scss";
 
@@ -56,6 +57,7 @@ export default function Payment(props: {}) {
         <hr />
         <Row>
           <Col md="auto">
+          {/*<!--TODO: Filter payment list on user selection*/}
           <DatePicker
             name="startData"
             label="Start Date"
@@ -71,7 +73,8 @@ export default function Payment(props: {}) {
             onValueChange={handleDateChange}
           /></Col>
           <Col>
-
+            {/*<!--Pass a new enum type with all the status and filter the payment list base on the user selection -->*/}
+            <MultiSelectComponent />
           </Col>
           <Col md="auto" className={style.verticalCenter}>
           <Button variant="primary" >

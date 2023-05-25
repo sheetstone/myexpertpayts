@@ -1,8 +1,8 @@
 /*
  * Payment Item
  */
+import { PaymentInterface } from "api/payment";
 import style from "./paymentItem.module.scss";
-import { PaymentInterface } from "api/paymentApi";
 
 function labelActive() {
   return <span className={style.labelActive}>Active</span>;

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
-import { getPayments } from "api/paymentApi";
+import { getPayments, PaymentInterface } from "api/payment";
 
 import LoadingIndicator from "components/UI/LoadingIndicator/LoadingIndicator";
 import ErrorMessage from "components/UI/errorMessage/ErrorMessage";
 import DashBoard from "./DashBoard/dashBoard";
-import { PaymentInterface } from "api/paymentApi";
+
 
 import classes from "./accountSummary.module.scss";
 
@@ -15,6 +15,7 @@ const AccountSummary = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<any>('');
 
+  //TODO: refactor, remove date fetching from here, to make the data from Payment datastore
   useEffect(() => {
     getPayments()
       .then((data) => {
