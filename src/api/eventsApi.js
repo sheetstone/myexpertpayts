@@ -1,4 +1,4 @@
-import { onSuccess, baseUrl } from "./baseApi";
+import { baseUrl, onSuccess } from "./baseApi";
 
 export function getEvents() {
   return get("events.json");

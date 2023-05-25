@@ -5,20 +5,16 @@
  * This component is the skeleton around the actual pages, and should only
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
-
-import React from "react";
 import { Helmet } from "react-helmet";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-import HomePage from "./HomePage/Homepage";
 import BankAccount from "./BankAccount/bankAccount";
 import CaseInfo from "./CaseInfo/caseinfo";
+import HomePage from "./HomePage/Homepage";
+import Payment from "./Payment/payment";
 import Recipients from "./Recipients/recipients";
-import Payment from "./Payment/payment"
-//import Payment from 'containers/Payment/Loadable';
-//import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import Header from "../components/Layout/Header/Header";
 import Footer from "../components/Layout/Footer/Footer";
+import Header from "../components/Layout/Header/Header";
 
 export default function App() {
   return (
@@ -28,12 +24,12 @@ export default function App() {
       </Helmet>
       <Header />
       <Routes>
-        <Route exact path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/bankaccount" element={<BankAccount />} />
         <Route path="/caseinfo/*" element={<CaseInfo />} />
         <Route path="/recipients" element={<Recipients />} />
         <Route path="/payment" element={<Payment />} />
-        <Route path="*" component={<p>Not Found!</p>} />
+        <Route path="*" element={<p>Not Found!</p>} />
         
       </Routes>
       <Footer />

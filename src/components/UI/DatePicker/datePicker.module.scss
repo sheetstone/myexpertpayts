@@ -1,4 +1,6 @@
 @import "../../../globalStyle/variables";
+@import "~bootstrap/scss/_functions.scss";
+
 
 .calendarGroup {
   position: relative;
@@ -15,6 +17,7 @@
   overflow: show;
 
   &:focus-within {
+    background: #e8f4f6;
   }
   &:nth-of-type(1) {
     border-top-left-radius: 5px;
@@ -45,7 +48,7 @@
   width: 75%;
 
   &:focus {
-    outline: 1px solid #339999;
+    outline: 0px solid;
   }
 }
 .show {
@@ -61,8 +64,7 @@
 .hide {
   display: none;
 }
-
-.calendarIcon{
+.calendarIconBtn{
   width: 20px;
   height: auto;
   display: block;
@@ -70,8 +72,20 @@
   top: 12px;
   right: 10px;
   cursor: pointer;
+  border: 0 none;
+  background: none;
+  padding: 0 0;
 
   svg{
     color: $primary;
   }
+  &:hover{
+    svg{
+      color: shade-color($primary, 15%);
+    }
+  }
+}
+.calendarIcon{
+  width: 20px;
+  height: auto;
 }

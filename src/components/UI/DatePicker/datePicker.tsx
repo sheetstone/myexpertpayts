@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, FocusEvent } from "react";
 import PropTypes from "prop-types";
 
 import Calendar from "react-calendar";
@@ -7,23 +7,39 @@ import moment from "moment";
 import classes from "./datePicker.module.scss";
 import "react-calendar/dist/Calendar.css";
 
-const DatePicker = (props: {name: string, label: string, id: string, value: string, onValueChange:Function}) => {
+const DatePicker = (props: {
+  name: string;
+  label: string;
+  id: string;
+  value: string;
+  onValueChange: Function;
+}) => {
   const { name, label, id, value, onValueChange } = props;
   const [date, setDate] = useState(new Date(value));
   const [showCalendar, setShowCalendar] = useState(false);
 
-  const inputRef = useRef(null);
-  const onChange = (newDate:any) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const onChange = (newDate: any) => {
     setDate(newDate);
     setShowCalendar(false);
     onValueChange(date, name);
   };
 
+  const onBlur = (e: FocusEvent<HTMLInputElement>) => {
+    if (!e?.currentTarget?.parentElement?.contains(e.relatedTarget)) {
+      setShowCalendar(false);
+    }
+  };
+
   const onFocus = () => {
     setShowCalendar(true);
   };
-  const ForusInput = () => {
-    setShowCalendar(!showCalendar);
+  const ToggleCalendar = () => {
+    if (!showCalendar) {
+      inputRef?.current?.focus();
+    } else {
+      setShowCalendar(false);
+    }
   };
 
   return (
@@ -41,7 +57,7 @@ const DatePicker = (props: {name: string, label: string, id: string, value: stri
         id={id}
         name={name}
         onFocus={onFocus}
-        //onBlur={onBlur}
+        onBlur={onBlur}
         onChange={onChange}
         ref={inputRef}
       />
@@ -50,11 +66,9 @@ const DatePicker = (props: {name: string, label: string, id: string, value: stri
         value={moment(date).format("MM-DD-YYYY")}
         className={showCalendar ? classes.calendar : classes.hide}
       />
-      <Icon
-        name="calendar"
-        className={classes.calendarIcon}
-        onClick={ForusInput}
-      />
+      <button onClick={ToggleCalendar} className={classes.calendarIconBtn}>
+        <Icon name="calendar" className={classes.calendarIcon} />
+      </button>
     </div>
   );
 };

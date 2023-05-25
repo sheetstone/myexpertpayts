@@ -1,17 +1,16 @@
 /*
  * Payment List
  */
-import React, { useState, useEffect } from "react";
+import DatePicker from "components/UI/DatePicker/datePicker";
+import LoadingIndicator from "components/UI/LoadingIndicator/LoadingIndicator";
+import { useEffect, useState } from "react";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { Helmet } from "react-helmet";
 import { FormattedMessage } from "react-intl";
-import { Container, Button, Row, Col, Dropdown } from "react-bootstrap";
-import LoadingIndicator from "components/UI/LoadingIndicator/LoadingIndicator";
-import DatePicker from "components/UI/DatePicker/datePicker";
 
-import { getPayments } from "api/paymentApi";
+import { PaymentInterface, getPayments } from "api/paymentApi";
 import moment from "moment";
 import PaymentList from "./component/PaymentList/paymentList";
-import { PaymentInterface } from "api/paymentApi";
 import messages from "./messages";
 import style from "./payment.module.scss";
 
@@ -71,14 +70,15 @@ export default function Payment(props: {}) {
             value={moment(endDate).format("MMMM-DD-YYYY")}
             onValueChange={handleDateChange}
           /></Col>
-          <Col xs={4}>
+          <Col>
+
           </Col>
-          <Col md="auto">
-          <Button variant="primary" size="sm">
+          <Col md="auto" className={style.verticalCenter}>
+          <Button variant="primary" >
             Send Money
           </Button>
 
-          <Button variant="primary" size="sm">
+          <Button variant="primary" >
             Request Money
           </Button>
           </Col>

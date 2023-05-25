@@ -10,3 +10,11 @@
 .pageScaffoldingHeader {
   font-size: 14px;
 }
+.verticalCenter{
+  justify-content: center;
+  display:flex;
+  padding: 0.4em 0;
+  button{
+    margin-left: 0.8em;
+  }
+}
