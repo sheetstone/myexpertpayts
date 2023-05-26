@@ -29,5 +29,33 @@ export interface PaymentInterface {
     id: number;
     name: string;
     paymentdate: string;
-    status: number;
+    status: PaymentStatus;
   }
+
+  export enum PaymentStatus {
+    Accepted = 1,
+    Canceled = 2,
+    Completed = 3,
+    Expired = 4,
+    InProgress = 5,
+    Rejected = 6,
+    Returned = 7,
+    ReversalCompleted = 8,
+    ReversalFailed = 9,
+    ReversalInitiated = 10,
+  }
+
+  export const PaymentStatusText = [
+    'Accepted',
+    'Canceled',
+    'Completed',
+    'Expired',
+    'In Progress',
+    'Rejected',
+    'Returned',
+    'Reversal Completed',
+    'Reversal Failed',
+    'Reversal Initiated',
+  ]
+
+  

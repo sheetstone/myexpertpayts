@@ -1,7 +1,7 @@
 /*
  * Payment Item
  */
-import { PaymentInterface } from "api/payment";
+import { PaymentInterface, PaymentStatus, PaymentStatusText } from "api/payment";
 import style from "./paymentItem.module.scss";
 
 function labelActive() {
@@ -9,8 +9,8 @@ function labelActive() {
 }
 
 // To be implemented
-function statusCheck(status?: number) {
-  return <span className={style.labelVerification}>Require Verification</span>;
+function statusCheck(status: number) {
+  return <span className={style.labelVerification}>{PaymentStatusText[status-1]}</span>;
 }
 
 export default function PaymentItem(props: {paymentData:PaymentInterface}) {

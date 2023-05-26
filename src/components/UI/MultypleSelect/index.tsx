@@ -1,20 +1,47 @@
-import React, { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from "react";
+import { Dropdown, Form } from "react-bootstrap";
+import classes from "./MultypleSelect.module.scss";
 
-const MultiSelectComponent = () => {
+const MultiSelectComponent = (props: { entries: [string, number][] }) => {
   const [selectedOptions, setSelectedOptions] = useState<any>([]);
+  const { entries } = props;
 
-  const handleOptionChange = (event:ChangeEvent<HTMLSelectElement>) => {
-    const selectedValues = Array.from(event.currentTarget.value);
-    setSelectedOptions(selectedValues);
+  const handleOptionChange = (event: ChangeEvent<Element>, value: number) => {
+    if (selectedOptions.includes(value)) {
+      //setSelectedOptions(selectedOptions.filter((item) => item !== option));
+    } else {
+      //setSelectedOptions([...selectedOptions, option]);
+    }
   };
 
+  const filteredEntries = entries.filter((entry) => {
+    return typeof entry[1] === "number" ? entry : null;
+  });
+
   return (
-    <select multiple value={selectedOptions} onChange={handleOptionChange}>
-      <option value="option1">Option 1</option>
-      <option value="option2">Option 2</option>
-      <option value="option3">Option 3</option>
-      <option value="option4">Option 4</option>
-    </select>
+    <Dropdown>
+      <Dropdown.Toggle variant="primary" id="dropdown-basic">
+        Select Options
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Form>
+          {filteredEntries.map(([key, value]: [string, number]) => {
+            return (
+              <label key={key} className={classes.checkboxline}>
+                <input
+                  className={classes.checkbox}
+                  type="checkbox"
+                  value={value}
+                  onChange={(e: ChangeEvent) => handleOptionChange(e, value)}
+                />
+                {key}
+              </label>
+            );
+          })}
+        </Form>
+      </Dropdown.Menu>
+    </Dropdown>
   );
 };
 

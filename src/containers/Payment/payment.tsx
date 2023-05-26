@@ -9,11 +9,12 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { Helmet } from "react-helmet";
 import { FormattedMessage } from "react-intl";
 
-import { PaymentInterface, getPayments } from "api/payment";
+import { PaymentInterface, getPayments, PaymentStatus, PaymentStatusText } from "api/payment";
 import moment from "moment";
 import PaymentList from "./PaymentList/paymentList";
 import messages from "./messages";
 import style from "./payment.module.scss";
+import { text } from "stream/consumers";
 
 export default function Payment(props: {}) {
   const [startDate, setStartDate] = useState(moment().subtract(3, "months"));
@@ -44,6 +45,11 @@ export default function Payment(props: {}) {
     }
   };
 
+  const paymentEntries = PaymentStatusText.map((value, index):[string, number] => {
+    console.log(value)
+    return [value, index]
+  });
+
   return (
     <article className={style.bankaccountbg}>
       <Helmet>
@@ -72,9 +78,10 @@ export default function Payment(props: {}) {
             value={moment(endDate).format("MMMM-DD-YYYY")}
             onValueChange={handleDateChange}
           /></Col>
-          <Col>
-            {/*<!--Pass a new enum type with all the status and filter the payment list base on the user selection -->*/}
-            <MultiSelectComponent />
+          <Col className={style.verticalCenter}>
+            {/*<!--Pass a enum type with all the status and filter the payment list base on the user selection -->*/
+              <MultiSelectComponent entries={paymentEntries}/>
+            }
           </Col>
           <Col md="auto" className={style.verticalCenter}>
           <Button variant="primary" >
