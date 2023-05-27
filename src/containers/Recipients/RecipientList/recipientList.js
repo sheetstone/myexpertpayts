@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import LoadingIndicator from 'components/UI/LoadingIndicator/LoadingIndicator'
-import { getRecepient } from 'api/recipentApi.js'
+import { getRecepient } from 'api/recipentApi.ts'
 
 import Recipient from "./Recipient/recipient";
 
