@@ -38,9 +38,9 @@ const DashBoard = (props) => {
 
     if (!!paymentData === false) return 0;
     paymentData.forEach((item) => {
-      if (item.status === 0) {
+      if (item.type === 0) {
         sumRecieved += parseFloat(item.amount);
-      } else if (item.status === 1) {
+      } else if (item.type === 1) {
         sumSent += parseFloat(item.amount);
       }
     });
@@ -58,9 +58,9 @@ const DashBoard = (props) => {
 
     if (!!paymentData === false) return 0;
     paymentData.forEach((item) => {
-      if (item.status === 2) {
+      if (item.type === 2) {
         sumRecieved += parseFloat(item.amount);
-      } else if (item.status === 3) {
+      } else if (item.type === 3) {
         sumSent += parseFloat(item.amount);
       }
     });

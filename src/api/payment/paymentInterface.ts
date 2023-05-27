@@ -30,8 +30,15 @@ export interface PaymentInterface {
     name: string;
     paymentdate: string;
     status: PaymentStatus;
+    type: PaymentType;
   }
 
+  export enum PaymentType {
+    Sent = 0,
+    Received = 1,
+    PendingSent = 2,
+    PendingReceived = 3,
+  }
   export enum PaymentStatus {
     Accepted = 1,
     Canceled = 2,

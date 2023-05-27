@@ -46,7 +46,6 @@ export default function Payment(props: {}) {
   };
 
   const paymentEntries = PaymentStatusText.map((value, index):[string, number] => {
-    console.log(value)
     return [value, index]
   });
 

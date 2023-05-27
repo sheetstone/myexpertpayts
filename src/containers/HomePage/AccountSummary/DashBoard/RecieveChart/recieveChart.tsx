@@ -1,8 +1,8 @@
-import React from "react";
 import Chart from "react-google-charts";
 import PropTypes from "prop-types";
 
 import classes from "./recieveChart.module.scss";
+import { PaymentInterface } from "api/payment";
 
 // with google-charts;
 const options = {
@@ -21,55 +21,66 @@ const options = {
   is3D: false,
 };
 
-const RecieveChart = (props) => {
+const RecieveChart = (props: {
+  dashboardType: "recieved" | "sent";
+  chartType: number;
+  paymentData: PaymentInterface[];
+}) => {
   const { dashboardType, chartType, paymentData } = props;
 
   const getChartData = () => {
-    let status;
+    let type;
     switch (dashboardType) {
       case "recieved":
-        status = 0;
+        type = 0;
         break;
       case "sent":
-        status = 1;
+        type = 1;
         break;
       default:
-        status = 0;
+        type = 0;
     }
     switch (chartType) {
       case 1: // Recipent selected
-        return getChartDataByKey("name", status);
+        return getChartDataByKey("name", type);
       case 2: // Bank selected
-        return getChartDataByKey("bank", status);
+        return getChartDataByKey("bank", type);
       case 3: // Case selected
-        return getChartDataByKey("casenumber", status);
+        return getChartDataByKey("casenumber", type);
       case 4: // Categoray selected
-        return getChartDataByKey("catgory", status);
+        return getChartDataByKey("catgory", type);
       default:
         break;
     }
   };
 
-  const getChartDataByKey = (key, sta) => {
-    const keylist = [];
-    const fineddata = [[key, "Amount"]];
+  const getChartDataByKey = (
+    key: "name" | "bank" | "casenumber" | "catgory",
+    sta: number
+  ) => {
+    const keylist: string[] = [];
+    const fineddata: any[] = [[key, "Amount"]];
 
-    if (!!paymentData === false) return 0;
+    if (paymentData.length === 0) return 0;
     //console.log(paymentData);
-    paymentData.forEach((item) => {
-      if (!keylist.includes(item[key])) {
-        keylist.push(item[key]);
+    paymentData.forEach((payment) => {
+      if (
+        payment[key] !== undefined &&
+        !keylist.includes(payment[key] as string)
+      ) {
+        keylist.push(payment[key] as string);
       }
     });
     const group = keylist.map((item) => {
       let sum = 0;
       paymentData.forEach((piece) => {
-        if (piece[key] === item && piece.status === sta) {
-          sum += parseFloat(piece.amount);
+        if (piece[key] === item && piece.type === sta) {
+          sum += (typeof piece.amount == 'string') ? parseFloat(piece.amount): piece.amount;
         }
-      });
+      });  
       return [item, sum];
     });
+    console.log(group)
     return fineddata.concat(group);
   };
 

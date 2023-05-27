@@ -19,7 +19,8 @@ const AccountSummary = () => {
   useEffect(() => {
     getPayments()
       .then((data) => {
-        setPaymentData(data);
+        const paymentData = data as PaymentInterface[];
+        setPaymentData(paymentData);
         setIsLoading(false);
       })
       .catch((err) => {
