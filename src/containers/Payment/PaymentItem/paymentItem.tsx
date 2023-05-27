@@ -1,12 +1,8 @@
 /*
  * Payment Item
  */
-import { PaymentInterface, PaymentStatus, PaymentStatusText } from "api/payment";
+import { PaymentInterface, PaymentStatusText } from "api/payment";
 import style from "./paymentItem.module.scss";
-
-function labelActive() {
-  return <span className={style.labelActive}>Active</span>;
-}
 
 // To be implemented
 function statusCheck(status: number) {
@@ -28,3 +24,4 @@ export default function PaymentItem(props: {paymentData:PaymentInterface}) {
     </li>
   );
 }
+
