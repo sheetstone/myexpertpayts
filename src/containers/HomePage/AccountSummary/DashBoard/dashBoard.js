@@ -3,7 +3,7 @@ import moment from "moment";
 import PropTypes from "prop-types";
 
 import formatMoney from "utils/formatMoney";
-import RecieveChart from "./RecieveChart/recieveChart";
+import RecieveChart from "./RecieveChart/receiveChart";
 import ChartTypeDropDown from "./ChartTypeDropDown/chartTypeDropDown";
 
 import classes from "./dashBoard.module.scss";

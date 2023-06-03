@@ -1,5 +1,4 @@
 import React from "react";
-
 import style from "./styles/style.scss";
 
 // traditional HTML 5 solution backup

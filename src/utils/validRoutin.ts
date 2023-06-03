@@ -1,8 +1,10 @@
 /**
- * Validate the input is a rountin number
+ * Validates the input as a routing number.
+ * @param {string} routing - The routing number to validate.
+ * @returns {boolean} - Returns true if the routing number is valid, false otherwise.
  */
-export default function validRoutin(routing) {
-  if (routing.length !== 9) {
+export default function validRoutin(routing:string):boolean {
+  if (routing?.length !== 9) {
     return false;
   }
 

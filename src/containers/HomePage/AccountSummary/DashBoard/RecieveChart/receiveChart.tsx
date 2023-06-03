@@ -1,7 +1,7 @@
 import Chart from "react-google-charts";
 import PropTypes from "prop-types";
 
-import classes from "./recieveChart.module.scss";
+import classes from "./receiveChart.module.scss";
 import { PaymentInterface, PaymentType } from "api/payment";
 
 // with google-charts;
@@ -21,7 +21,7 @@ const options = {
   is3D: false,
 };
 
-const RecieveChart = (props: {
+const ReceiveChart = (props: {
   dashboardType: "recieved" | "sent";
   chartType: number;
   paymentData: PaymentInterface[];
@@ -114,10 +114,10 @@ const RecieveChart = (props: {
   );
 };
 
-RecieveChart.propTypes = {
+ReceiveChart.propTypes = {
   dashboardType: PropTypes.oneOf(["recieved", "sent"]).isRequired,
   chartType: PropTypes.number.isRequired,
   paymentData: PropTypes.array.isRequired,
 };
 
-export default RecieveChart;
+export default ReceiveChart;
