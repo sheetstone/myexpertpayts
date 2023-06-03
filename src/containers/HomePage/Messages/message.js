@@ -40,7 +40,6 @@ const Messages = () => {
                 <td>{type}</td>
                 <td>{recieved}</td>
                 <td className={classes.price}>
-                  <span>$</span>
                   <span className={classes.priceNumber}>
                     {formatMoney(amount)}
                   </span>
