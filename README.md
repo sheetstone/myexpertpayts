@@ -15,17 +15,15 @@
 
 - [About](#about)
 - [Getting Started](#getting_started)
-- [Deployment](#deployment)
+- [Running the tests](#tests)
 - [Usage](#usage)
+- [Deployment](#deployment)
 - [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
 
 ## 🧐 About <a name = "about"></a>
 
-Write about 1-2 paragraphs describing the purpose of your project.
+My Expertpay is a web application that allows users to manage their Expertpay account. Expertpay is a service that allows employers to pay their employees through a debit card. This application allows users to view their account balance, view their transaction history, and transfer funds to their bank account.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
