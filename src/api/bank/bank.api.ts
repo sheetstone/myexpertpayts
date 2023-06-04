@@ -1,5 +1,5 @@
 import { get, del, post, patch } from "../baseApi";
-import { Bank, BankFormType } from "./bank.store";
+import { Bank, BankFormType } from "./bankInterface";
 import resolveBankName from "./resolveBankName";
 
 async function getBanks() {

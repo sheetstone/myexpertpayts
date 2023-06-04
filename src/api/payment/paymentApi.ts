@@ -1,39 +1,29 @@
-import { baseUrl, onSuccess } from "../baseApi";
+import { get, del } from "../baseApi";
 import { PaymentInterface } from "./paymentInterface";
 
 /**
- *  
- * @returns Promise<PaymentInterface[]>
+ * Retrieves a list of payments.
+ * @returns A Promise that resolves to an array of PaymentInterface objects.
  * @example
  * getPayments().then(payments => {
- * console.log(payments);
+ *   console.log(payments);
  * });
  */
-export function getPayments():Promise<PaymentInterface[]> {
+function getPayments():Promise<PaymentInterface[]> {
   return get("payments.json");
 }
 
 /**
- *  
- * @param id
- * @returns Promise<PaymentInterface[]>
+ * Deletes a payment with the specified ID.
+ * @param id The ID of the payment to delete.
+ * @returns A Promise that resolves to an array of PaymentInterface objects.
  * @example
  * deletePayment(1).then(payments => {
- * console.log(payments);
+ *   console.log(payments);
  * });
  */
-export function deletePayment(id:number):Promise<PaymentInterface[]> {
+function deletePayment(id:number):Promise<PaymentInterface[]> {
   return del(`payments/${id}`);
 }
 
-function get(url:string):Promise<PaymentInterface[]> {
-  return fetch(baseUrl + url).then(onSuccess);
-}
-
-function del(url:string):Promise<PaymentInterface[]> {
-  const request = new Request(baseUrl + url, {
-    method: "DELETE",
-  });
-
-  return fetch(request).then(onSuccess);
-}
+export { getPayments, deletePayment }

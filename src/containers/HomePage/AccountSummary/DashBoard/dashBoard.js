@@ -65,12 +65,13 @@ const DashBoard = (props) => {
       }
     });
     if (type === "recieved") {
-      return formatMoney(sumRecieved);
+      return formatMoney(sumRecieved).replace("$", ""); //TODO: when collab with i18n, remove replace function
     }
     if (type === "sent") {
-      return formatMoney(sumSent);
+      return formatMoney(sumSent).replace("$", "") //TODO: when collab with i18n, remove replace function;
     }
-  };
+  }; 
+  
 
   return (
     <div>

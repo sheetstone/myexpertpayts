@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal, Button, Form, Col, Row } from "react-bootstrap";
 import { addBank } from "api/bank/bank.api";
 import validRoutin from "utils/validRoutin";
-import { BankFormType } from "api/bank/bank.store";
+import { BankFormType } from "api/bank/bankInterface";
 import * as yup from "yup";
 import messages from "../messages";
 

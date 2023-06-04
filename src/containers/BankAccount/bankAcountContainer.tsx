@@ -11,10 +11,10 @@ import { useBanks } from 'api/bank/bank.store'
 
 const BankAccountContainer = (props:any) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { bankData, showEditBank, toggleEditBank, loadBank, error } = useBanks([]);
+  const { bankData, showEditBank, toggleEditBank, loadBank, error } = useBanks({});
 
   useEffect(()=>{
-    if (bankData && bankData.length === 0){
+    if (bankData && Object.keys(bankData).length === 0){
       setIsLoading(true);
       loadBank().then(stat=>{
         if(stat.success){
@@ -33,7 +33,7 @@ const BankAccountContainer = (props:any) => {
       <hr />
       {isLoading && <LoadingIndicator />}
       {!isLoading && <BankList />}
-      {error && <p>{error}</p>}
+      {error && <p>{error.toString()}</p>}
       <EditBankAccount
         show={showEditBank}
         onHide={() => toggleEditBank(false)}

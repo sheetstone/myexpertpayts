@@ -36,7 +36,7 @@ const SideDropDown = (props: any) => {
   const [isShow, setShow] = useState(false);
   const { keyItem, bankItem } = props;
 
-  const { delBank, verifyBank } = useBanks([]);
+  const { delBank, verifyBank } = useBanks({});
 
   const handleToggle = (isOpen:boolean) => {
     setShow(isOpen);

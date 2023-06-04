@@ -7,7 +7,7 @@ import { useBanks } from 'api/bank/bank.store';
 import BankItem from "./BankItem/bankItem";
 
 export default function BankList(props: any) {
-  const { bankData } = useBanks(false);
+  const { bankData } = useBanks({});
   let bankList:any[]|any = [];
 
   if (bankData === null) {
