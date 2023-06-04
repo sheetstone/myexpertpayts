@@ -9,12 +9,11 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { Helmet } from "react-helmet";
 import { FormattedMessage } from "react-intl";
 
-import { PaymentInterface, getPayments, PaymentStatus, PaymentStatusText } from "api/payment";
+import { PaymentInterface, getPayments, PaymentStatusText } from "api/payment";
 import moment from "moment";
 import PaymentList from "./PaymentList/paymentList";
 import messages from "./messages";
 import style from "./payment.module.scss";
-import { text } from "stream/consumers";
 
 export default function Payment(props: {}) {
   const [startDate, setStartDate] = useState(moment().subtract(3, "months"));

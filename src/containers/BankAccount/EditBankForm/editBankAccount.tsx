@@ -25,7 +25,7 @@ const schema = yup.object().shape({
   rountingNumber: yup
     .string()
     .required("Rounting Number is required")
-    .test("isRounting", "Not a valid Rounting Number", validRoutin),
+    .test("isRounting", "Not a valid Rounting Number", validRoutin as yup.TestFunction<string | undefined>),
   accountNumber: yup
     .string()
     .required("Account Number is required")

@@ -1,17 +1,15 @@
 import * as yup from "yup";
+
 /**
- * Validate the input is a case number
+ * Validates whether the input is a valid case number.
+ * A valid case number starts with 0-5 characters, followed by a dash,
+ * and then followed by 4-10 numbers. The entire case number should be 11 characters or less.
+ * 
+ * @param input - The input to be validated as a case number.
+ * @returns A boolean indicating whether the input is a valid case number or not.
  */
 
-/* 
-  Case number logic: 
-  Case number start with 0-5 Char, 
-  Follow with a dash,
-  and follow with 4-10 numbers,
-  and the length of entire case number is 11 charactor less.
- */
-
-export function validCaseNumber(this: any, input: any) {
+export function validCaseNumber(this: any, input: string):boolean {
   if (input.length >= 15) {
     return false;
   }
@@ -28,5 +26,5 @@ export default function validCaseNumberSchema(
   msg: string,
   casenumber: string
 ): yup.StringSchema {
-  return this.test("casenumber", msg, validCaseNumber);
+  return this.test("casenumber", msg, validCaseNumber as yup.TestFunction<string|undefined>);
 }
