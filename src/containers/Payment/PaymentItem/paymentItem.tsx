@@ -1,11 +1,10 @@
 /*
  * Payment Item
  */
-import { PaymentInterface, PaymentStatusText } from "api/payment";
+import { PaymentInterface, PaymentStatusText, PaymentStatus } from "api/payment";
 import style from "./paymentItem.module.scss";
 
-// To be implemented
-function statusCheck(status: number) {
+function statusCheck(status: PaymentStatus) {
   return <span className={style.labelVerification}>{PaymentStatusText[status-1]}</span>;
 }
 

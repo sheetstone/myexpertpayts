@@ -1,18 +1,67 @@
-.checkboxline{
-    display: flex;
-    align-items: center;
-    padding: 0.7em 0.5em;
-    font-size: 16px;
-    line-height: 16px;
-    
-    &:hover{
-        cursor: pointer;
-        background-color:red;
-    }
-    &:last-child{
-        margin-bottom: 0;
-    }
-    .checkbox{
-        margin-right: 10px;
-    }
+@import "~globalStyle/variables";
+@import "~bootstrap/scss/_functions.scss";
+
+.checkboxline {
+  display: flex;
+  align-items: center;
+  padding: 0.6em 0.7em;
+  font-size: 16px;
+  line-height: 16px;
+
+  &:hover {
+    cursor: pointer;
+    color: #333;
+    background: tint-color($primary, 85%);
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+  .checkbox {
+    margin-right: 10px;
+  }
+}
+.menu{
+  min-width: 250px;
+}
+.dropdown{
+    height: 100%;
+}
+
+.toggle {
+  background-color: white!important;
+  color: $body-color!important;
+  height: 100%;
+  min-width: 200px;
+  text-align: left;
+  position: relative;
+  font-size: 18px;
+  padding: .6em 1em;
+  &::after {
+    font-size: 24px;
+    position: absolute;
+    right: 15px;
+    top: 24px;
+    color: $primary;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: transparent;
+    color: $body-color;
+  }
+  &:active{
+    cursor: pointer;
+    background-color: transparent !important;
+    color: $body-color !important;
+  }
+}
+
+.link{
+  color: $primary;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 10px;
+  &:hover{
+    color: shade-color($primary, 15%);
+  }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useRef, FocusEvent } from "react";
+import { useState, useRef, FocusEvent } from "react";
 import PropTypes from "prop-types";
 
 import Calendar from "react-calendar";
@@ -21,8 +21,8 @@ const DatePicker = (props: {
   const inputRef = useRef<HTMLInputElement>(null);
   const onChange = (newDate: any) => {
     setDate(newDate);
+    onValueChange(newDate, name);
     setShowCalendar(false);
-    onValueChange(date, name);
   };
 
   const onBlur = (e: FocusEvent<HTMLInputElement>) => {
