@@ -65,4 +65,10 @@ export interface PaymentInterface {
     'Reversal Initiated',
   ]
 
+  export const PaymentTypeText = [
+    'Sent',
+    'Received',
+    'Pending Sent',
+    'Pending Received',
+  ]
   

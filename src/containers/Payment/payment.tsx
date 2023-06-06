@@ -116,7 +116,6 @@ export default function Payment(props: {}) {
             <Button variant="primary">Request Money</Button>
           </Col>
         </Row>
-        <hr />
 
         {isLoading && <LoadingIndicator />}
         {!isLoading && <PaymentList paymentData={filteredPayment} />}

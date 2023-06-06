@@ -1,7 +1,7 @@
 .bankaccountbg {
   background: rgba(227, 230, 232, 0.25);
   padding-top: 1.5em;
-  min-height: 625px;
+  min-height: 820px;
 }
 .pageheader {
   font-size: 20px;
@@ -13,7 +13,9 @@
 .verticalCenter{
   //justify-content: center;
   display:flex;
-  padding: 0.4em 0;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+
   button{
     margin-left: 0.8em;
   }

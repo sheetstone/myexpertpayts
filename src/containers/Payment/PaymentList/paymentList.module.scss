@@ -1,4 +1,10 @@
+@import "~globalStyle/variables";
+
 .paymentList {
   list-style: none;
-  padding-left: 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: white;
+  margin-top: 20px;
+  width: 100%;
 }
