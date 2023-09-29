@@ -2,7 +2,8 @@ import Chart from "react-google-charts";
 import PropTypes from "prop-types";
 
 import classes from "./receiveChart.module.scss";
-import { PaymentInterface, PaymentType } from "api/payment";
+import { PaymentInterface } from "api/payment";
+import { getChartDataByKey } from "./getChartDataByKey";
 
 // with google-charts;
 const options = {
@@ -42,66 +43,20 @@ const ReceiveChart = (props: {
     }
     switch (chartType) {
       case 1: // Recipent selected
-        return getChartDataByKey("name", type);
+        return getChartDataByKey(paymentData, "name", type);
       case 2: // Bank selected
-        return getChartDataByKey("bank", type);
+        return getChartDataByKey(paymentData, "bank", type);
       case 3: // Case selected
-        return getChartDataByKey("casenumber", type);
+        return getChartDataByKey(paymentData, "casenumber", type);
       case 4: // Categoray selected
-        return getChartDataByKey("catgory", type);
+        return getChartDataByKey(paymentData, "catgory", type);
       default:
         break;
     }
   };
 
-  /**
-   * Returns an array of key-value pairs for the given key and payment type.
-   * @param key - The key to group the payment data by.
-   * @param type - The type of payment to filter by.
-   * @returns An array of key-value pairs representing the payment data grouped by the given key.
-   * @example
-   * [
-   *  ['bank', 'Amount']
-   *  ['Bank A', 1000],
-   *  ['Bank B', 2000],
-   *  ['Bank C', 1500],
-   *  ['Bank D', 500],
-   * ]
-   */
-  function getChartDataByKey(
-    key: "name" | "bank" | "casenumber" | "catgory",
-    type: PaymentType
-  ): [string, string | number][] {
-    const summaryMap = new Map<string, number>();
-    const tableHeader: [string, string | number][] = [[key, "Amount"]];
-
-    if (paymentData.length === 0) return [];
-    for (const payment of paymentData) {
-      if (payment[key] !== undefined && payment.type === type) {
-        const keyName = payment[key] as string;
-        if (summaryMap.has(keyName)) {
-          summaryMap.set(
-            keyName,
-            summaryMap.get(keyName)! +
-              (typeof payment.amount === "string"
-                ? parseFloat(payment.amount)
-                : payment.amount)
-          );
-        } else {
-          summaryMap.set(
-            keyName,
-            typeof payment.amount === "string"
-              ? parseFloat(payment.amount)
-              : payment.amount
-          );
-        }
-      }
-    }
-    return tableHeader.concat(Array.from(summaryMap.entries()));
-  }
-
   return (
-    <div>
+    <div data-testid="chart">
       <Chart
         chartType="PieChart"
         width="100%"
