@@ -6,7 +6,6 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { createSelector } from "reselect";
 
 import Toggle from "components/Toggle";
@@ -38,11 +37,4 @@ const mapStateToProps = createSelector(makeSelectLocale(), (locale) => ({
   locale,
 }));
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    onLocaleToggle: (evt) => dispatch(changeLocale(evt.target.value)),
-    dispatch,
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LocaleToggle);
+export default LocaleToggle;

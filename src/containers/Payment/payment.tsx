@@ -22,7 +22,7 @@ import style from "./payment.module.scss";
 import { stat } from "fs";
 
 export default function Payment(props: {}) {
-  const [startDate, setStartDate] = useState<moment.Moment>(moment().subtract(3, "months"));
+  const [startDate, setStartDate] = useState<moment.Moment>(moment().subtract(1, "years"));
   const [endDate, setEndDate] = useState<moment.Moment>(moment());
   const [statusSelected, setStatusSelected] = useState<number[]>(
     Object.values(PaymentStatus).filter(
