@@ -9,6 +9,7 @@ import { Helmet } from "react-helmet";
 import { Route, Routes, redirect } from "react-router-dom";
 
 import { AuthContextProvider, useAuth } from "../api/auth/auth.store";
+import { AuthGuard } from "../api/auth/authenticationGuard";
 import BankAccount from "./BankAccount/bankAccount";
 import CaseInfo from "./CaseInfo/caseinfo";
 import HomePage from "./HomePage/Homepage";
@@ -21,11 +22,6 @@ import { useEffect } from "react";
 
 export default function App() {
   const { isLogin } = useAuth(null);
-  useEffect(() => {
-    if(!isLogin){
-      redirect("/login");
-    }
-  }, [isLogin]);
 
   return (
     <AuthContextProvider>
@@ -35,12 +31,47 @@ export default function App() {
 
       {isLogin && <Header />}
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        {
+          // Not required to be logged in page
+        }
         <Route path="/login" element={<Login />} />
-        <Route path="/bankaccount" element={<BankAccount />} />
-        <Route path="/caseinfo/*" element={<CaseInfo />} />
-        <Route path="/recipients" element={<Recipients />} />
-        <Route path="/payment" element={<Payment />} />
+
+        {
+          // Required to be logged in page
+        }
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/bankaccount"
+          element={
+            <AuthGuard>
+              <BankAccount />
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/caseinfo/*"
+          element={
+            <AuthGuard>
+              <CaseInfo />
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/recipients"
+          element={
+            <AuthGuard>
+              <Recipients />
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <AuthGuard>
+              <Payment />
+            </AuthGuard>
+          }
+        />
         <Route path="*" element={<p>Not Found!</p>} />
       </Routes>
       {isLogin && <Footer />}
