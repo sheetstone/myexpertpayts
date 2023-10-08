@@ -6,10 +6,11 @@
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
 import { Helmet } from "react-helmet";
-import { Route, Routes, redirect } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import { AuthContextProvider, useAuth } from "../api/auth/auth.store";
-import { AuthGuard } from "../api/auth/authenticationGuard";
+import { AuthGuard } from "../api/auth/authGuard";
+import { UnAuthGuard } from "../api/auth/unAuthGuard";
 import BankAccount from "./BankAccount/bankAccount";
 import CaseInfo from "./CaseInfo/caseinfo";
 import HomePage from "./HomePage/Homepage";
@@ -18,7 +19,6 @@ import Recipients from "./Recipients/recipients";
 import Footer from "../components/Layout/Footer/Footer";
 import Header from "../components/Layout/Header/Header";
 import Login from "./Login/login";
-import { useEffect } from "react";
 
 export default function App() {
   const { isLogin } = useAuth(null);
@@ -39,7 +39,14 @@ export default function App() {
         {
           // Required to be logged in page
         }
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={
+            <AuthGuard>
+              <HomePage />
+            </AuthGuard>
+          }
+        />
         <Route
           path="/bankaccount"
           element={
