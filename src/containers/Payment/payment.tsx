@@ -19,7 +19,6 @@ import moment from "moment";
 import PaymentList from "./PaymentList/paymentList";
 import messages from "./messages";
 import style from "./payment.module.scss";
-import { stat } from "fs";
 
 export default function Payment(props: {}) {
   const [startDate, setStartDate] = useState<moment.Moment>(moment().subtract(1, "years"));

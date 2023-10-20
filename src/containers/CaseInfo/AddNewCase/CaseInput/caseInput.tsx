@@ -4,7 +4,6 @@ import { Form } from "react-bootstrap";
 import FormValidationError from "components/Form/formValidationError/formValidationError";
 import Popoverbox from "components/UI/popover/Popover";
 import classes from "../addNewCase.module.scss";
-import { string } from "yup";
 
 interface CaseInputType {
   objkey: string;

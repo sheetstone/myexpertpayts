@@ -19,7 +19,7 @@ export const schema = yup.object().shape({
   phoneNum: yup
     .string()
     .required('Phone number is required')
-    .matches(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/, 'Please input correct format of phone number'),
+    .matches(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/, 'Please input correct format of phone number'), // eslint-disable-line
 });
 
 export const formCreator = (register, formState, initalState, errors) => {

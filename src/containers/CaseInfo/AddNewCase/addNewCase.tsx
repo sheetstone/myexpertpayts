@@ -1,7 +1,7 @@
 /*
  * Add New Cases
  */
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { Row, Col, Button, Form } from "react-bootstrap";
@@ -43,12 +43,12 @@ const AddNewCase = () => {
       children:['sss']
     }
   });
-  const { fields, append, remove } = useFieldArray<CaseFormType>({
+  const { fields, append } = useFieldArray<CaseFormType>({
     name: "children",
     control
   });
 
-  const { caseNumber, ncpName, initalChildrenList } = formCreator(
+  const { caseNumber, ncpName } = formCreator(
     register,
     formState,
     initalState,

@@ -1,6 +1,4 @@
 import { useAuth } from "../../../api/auth/auth.store";
-import { Col, Container, Row } from "react-bootstrap";
-import classes from "./login.module.scss";
 
 export default function LoginContainer() {
   const { userId, handleSignIn, handleSignOut } = useAuth(null);

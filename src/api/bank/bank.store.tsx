@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import { BehaviorSubject } from "rxjs";
 import { addBank, getBanks, deleteBank, updateBank } from "./bank.api";
 import { useObservableState } from "observable-hooks";
-import { Bank, BankFormType, BankData } from "./bankInterface";
+import { BankFormType, BankData } from "./bankInterface";
 
 export const rawBanksData$ = new BehaviorSubject<BankData>({});
 

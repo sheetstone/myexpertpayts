@@ -1,8 +1,6 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-import classes from "./formValidationError.module.scss";
-
 const FormValidationError = (props) => {
   const { errors, formEle } = props;
   if (errors[formEle]) {

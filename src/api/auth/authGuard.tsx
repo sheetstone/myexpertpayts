@@ -1,4 +1,3 @@
-import React, { ReactElement, useEffect, FC } from "react";
 import { useAuth } from "./auth.store";
 import { Navigate, useLocation } from "react-router-dom";
 

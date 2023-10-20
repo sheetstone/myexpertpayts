@@ -1,6 +1,5 @@
 import {
   PaymentInterface,
-  PaymentStatusText,
   PaymentStatus,
   PaymentTypeText,
   PaymentType,

@@ -42,7 +42,7 @@ export const useAuth = (initial: User | null) => {
       return () => {
         unSubscribe();
       };
-    }, []);
+    }, [unSubscribe]);
 
     const handleSignIn = async () => {
       const provider = await new GoogleAuthProvider();

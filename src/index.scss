@@ -1,4 +1,7 @@
 @import "~globalStyle/custom.scss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 
 /* TODO: Move this into \src\components\Nav\ */
