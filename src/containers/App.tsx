@@ -20,8 +20,6 @@ import Payment from "./Payment/payment";
 import Recipients from "./Recipients/recipients";
 
 export default function App() {
-  const { isLogin } = useAuth(null);
-
   return (
     <AuthContextProvider>
       <Helmet titleTemplate="%s - MyExpertPay" defaultTitle="MyExpertPay">

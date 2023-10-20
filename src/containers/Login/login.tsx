@@ -1,4 +1,3 @@
-import kidsImage from "../../assets/images/kids.png";
 import { Col, Container, Row } from "react-bootstrap";
 import classes from "./login.module.scss";
 import LoginContainer from "./loginContainer";

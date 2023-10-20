@@ -31,7 +31,7 @@ const CasesList = () => {
         }
       });
     }
-  }, [])
+  }, [caseData, loadCase])
 
   const onEditClicked = (key:string, item:Case, e:React.MouseEvent<HTMLElement, MouseEvent>) => {
     navigate("editcase", {state:{

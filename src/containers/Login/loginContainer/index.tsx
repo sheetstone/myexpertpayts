@@ -1,7 +1,7 @@
 import { useAuth } from "../../../api/auth/auth.store";
 
 export default function LoginContainer() {
-  const { userId, handleSignIn, handleSignOut } = useAuth(null);
+  const { userId, handleSignIn, handleSignOut, isLogin } = useAuth(null);
 
   return (
     <>
@@ -10,7 +10,8 @@ export default function LoginContainer() {
         <button onClick={handleSignIn}>Sign In With Google</button>
       </div>
 
-      <div>User loged in</div>
+      <div>{ isLogin && (<>User logged in</>) }</div>
+      <div>{ !isLogin && (<>User logged out</>) }</div>
       <div>{userId}</div>
 
       <div>

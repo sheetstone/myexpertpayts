@@ -12,7 +12,7 @@ import { createContext, useState, useEffect } from "react";
 import { BehaviorSubject } from "rxjs";
 import app from "../../api/Firebase/firebase.config";
 
-export const rawBanksData$ = new BehaviorSubject<User | null>(null);
+export const rawUserData$ = new BehaviorSubject<User | null>(null);
 
 export const useAuth = (initial: User | null) => {
     const [isLogin, setIsLogin] = useState<boolean>(false);
