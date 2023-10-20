@@ -1,35 +1,91 @@
-import { createContext, useState } from "react";
+import {
+  GoogleAuthProvider,
+  User,
+  getAuth,
+  indexedDBLocalPersistence,
+  onAuthStateChanged,
+  setPersistence,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import { createContext, useState, useEffect } from "react";
 import { BehaviorSubject } from "rxjs";
-import { useObservableState } from "observable-hooks";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import app from "../../api/Firebase/firebase.config";
-import { User } from "firebase/auth";
 
 export const rawBanksData$ = new BehaviorSubject<User | null>(null);
 
 export const useAuth = (initial: User | null) => {
     const [isLogin, setIsLogin] = useState<boolean>(false);
-    const auth = getAuth(app);
+    const [user, setUser] = useState<User | null>(initial);
     const [userId, setUserId] = useState<string>('');
+    const auth = getAuth(app);
 
-    onAuthStateChanged(auth, (user) => {
+
+    const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         setIsLogin(true);
         setUserId(user.uid);
+        setUser(user);
         // ...
       } else {
-        setIsLogin(false);
-        setUserId('');
         // User is signed out
         // ...
+        setIsLogin(false);
+        setUserId('');
+        setUser(null);
       }
     });
 
+    useEffect(() => {
+      return () => {
+        unSubscribe();
+      };
+    }, []);
+
+    const handleSignIn = async () => {
+      const provider = await new GoogleAuthProvider();
+      const auth = getAuth(app);
+    
+      provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+      auth.useDeviceLanguage();
+      setPersistence(auth, indexedDBLocalPersistence)
+        .then(() => {
+          // New sign-in will be persisted with session persistence.
+          return signInWithPopup(auth, provider);
+        })
+        .then((result) => {
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential?.accessToken;
+          console.log("Login successful", token, result.user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          const email = error.email;
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          console.log("Login failed", errorCode, errorMessage, email, credential);
+        });
+    }
+
+    const handleSignOut = () => {
+      const auth = getAuth(app);
+      signOut(auth)
+        .then(() => {
+          console.log("Sign-out successful.");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
     return{
         isLogin,
-        userId
+        userId,
+        user,
+        handleSignIn,
+        handleSignOut
     }
 };
 

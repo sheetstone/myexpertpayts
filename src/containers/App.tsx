@@ -10,15 +10,14 @@ import { Route, Routes } from "react-router-dom";
 
 import { AuthContextProvider, useAuth } from "../api/auth/auth.store";
 import { AuthGuard } from "../api/auth/authGuard";
-import { UnAuthGuard } from "../api/auth/unAuthGuard";
+import Footer from "../components/Layout/Footer/Footer";
+import Header from "../components/Layout/Header/Header";
 import BankAccount from "./BankAccount/bankAccount";
 import CaseInfo from "./CaseInfo/caseinfo";
 import HomePage from "./HomePage/Homepage";
+import Login from "./Login/login";
 import Payment from "./Payment/payment";
 import Recipients from "./Recipients/recipients";
-import Footer from "../components/Layout/Footer/Footer";
-import Header from "../components/Layout/Header/Header";
-import Login from "./Login/login";
 
 export default function App() {
   const { isLogin } = useAuth(null);
@@ -29,7 +28,7 @@ export default function App() {
         <meta name="description" content="My ExpertPay" />
       </Helmet>
 
-      {isLogin && <Header />}
+      <Header />
       <Routes>
         {
           // Not required to be logged in page
@@ -81,7 +80,7 @@ export default function App() {
         />
         <Route path="*" element={<p>Not Found!</p>} />
       </Routes>
-      {isLogin && <Footer />}
+      <Footer />
     </AuthContextProvider>
   );
 }
