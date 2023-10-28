@@ -10,31 +10,30 @@ import {
 } from "firebase/auth";
 import { createContext, useState, useEffect } from "react";
 import { BehaviorSubject } from "rxjs";
+import { useObservableState } from "observable-hooks";
 import app from "../../api/Firebase/firebase.config";
 
 export const rawUserData$ = new BehaviorSubject<User | null>(null);
+export const rawLoginData$ = new BehaviorSubject<boolean>(false);
 
 export const useAuth = (initial: User | null) => {
-    const [isLogin, setIsLogin] = useState<boolean>(false);
-    const [user, setUser] = useState<User | null>(initial);
-    const [userId, setUserId] = useState<string>('');
     const auth = getAuth(app);
+    const userData = useObservableState<User | null>(rawUserData$, null);
+    const isLogin = useObservableState<boolean>(rawLoginData$, false);
 
 
     const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
-        setIsLogin(true);
-        setUserId(user.uid);
-        setUser(user);
+        rawLoginData$.next(true);
+        rawUserData$.next(user);
         // ...
       } else {
         // User is signed out
         // ...
-        setIsLogin(false);
-        setUserId('');
-        setUser(null);
+        rawLoginData$.next(false);
+        rawUserData$.next(null);
       }
     });
 
@@ -82,8 +81,7 @@ export const useAuth = (initial: User | null) => {
 
     return{
         isLogin,
-        userId,
-        user,
+        userData,
         handleSignIn,
         handleSignOut
     }
