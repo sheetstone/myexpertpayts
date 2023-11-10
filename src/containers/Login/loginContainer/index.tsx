@@ -1,12 +1,19 @@
 import { useAuth } from "../../../api/auth/auth.store";
+import { useNavigate } from "react-router-dom";
+import classes from "./index.module.scss";
 
 export default function LoginContainer() {
   const { handleSignIn, handleSignOut, isLogin, userData } = useAuth(null);
+  const navigation = useNavigate();
+
+  if(isLogin){
+    navigation('/');
+  }
 
   return (
     <>
-      <div>
-        <h1>Login</h1>
+      <div className={classes.box}>
+        <h1 className={classes.login}>Login</h1>
         <button onClick={handleSignIn}>Sign In With Google</button>
       </div>
 

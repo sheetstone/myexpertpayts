@@ -6,8 +6,9 @@ import NavLogo from "../Nav/NavLogo";
 import classes from "./Header.module.scss";
 import { useAuth } from "api/auth/auth.store";
 
-const Header = (props) => {
-  const { isLogin } = useAuth();
+const Header = () => {
+  const { handleSignOut, isLogin, userData } = useAuth(null);
+
   return (
     <header className={classes.Header}>
       <Container>
@@ -20,7 +21,7 @@ const Header = (props) => {
 
               <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text className={classes.Navtext}>
-                  WELCOME: <a href="#logout">John Joe</a>
+                  WELCOME: <a href="#logout" onClick={()=>{handleSignOut()}}>{userData?.displayName}</a>
                 </Navbar.Text>
               </Navbar.Collapse>
             </>
