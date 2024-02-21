@@ -43,7 +43,7 @@ export const useAuth = (initial: User | null) => {
       };
     }, [unSubscribe]);
 
-    const handleSignIn = async () => {
+    const handleSignInWithGoogle = async () => {
       const provider = await new GoogleAuthProvider();
       const auth = getAuth(app);
     
@@ -82,7 +82,7 @@ export const useAuth = (initial: User | null) => {
     return{
         isLogin,
         userData,
-        handleSignIn,
+        handleSignInWithGoogle,
         handleSignOut
     }
 };
