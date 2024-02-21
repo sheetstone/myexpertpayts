@@ -16,38 +16,43 @@ export default function LoginContainer() {
       <div className={classes.box}>
         <h1 className={classes.login}>Login</h1>
 
-        <h2>Log in to My ExpertPay to continue</h2>
-        <button className="bg-white text-grey p-2 rounded-md w-full flex items-center border-">
-          Login with Google
-        </button>
-
-        <div className="flex items-center mb-4">
-          <div className="border-t border-gray-300 flex-grow"></div>
-          <span className="mx-4 text-gray-500">or</span>
-          <div className="border-t border-gray-300 flex-grow"></div>
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Username or Email"
-            className="mt-1 p-2 w-full border rounded-md"
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            placeholder="Password"
-            className="mt-1 p-2 w-full border rounded-md"
-          />
-        </div>
-        <a href="#">Forgot your password?</a>
-        <div>
+        <div className="px-8 py-2">
+          <h2>Log in to My ExpertPay to continue</h2>
           <button
-            onClick={() => null}
-            className="bg-blue-500 text-white p-2 rounded-md w-full mb-4"
+            className="bg-white text-grey p-2 rounded-md w-full flex items-center border-"
+            onClick={handleSignInWithGoogle}
           >
-            Login
+            Login with Google
           </button>
+
+          <div className="flex items-center mb-4">
+            <div className="border-t border-gray-300 flex-grow"></div>
+            <span className="mx-4 text-gray-500">or</span>
+            <div className="border-t border-gray-300 flex-grow"></div>
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="Username or Email"
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+          </div>
+          <a href="#">Forgot your password?</a>
+          <div>
+            <button
+              onClick={() => null}
+              className="rounded-md w-full mb-4 btn btn-primary"
+            >
+              Login
+            </button>
+          </div>
         </div>
       </div>
 
