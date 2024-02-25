@@ -1,42 +1,64 @@
-.textContainer{
+.heroBanner {
+  background: 
+    /* Mask */ linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0) 10%,
+      rgba(255, 255, 255, 0.3) 20%,
+      rgba(255, 255, 255, 0) 30%,
+      rgba(255, 255, 255, 0.6) 40%,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(255, 255, 255, 0.4) 60%,
+      rgba(255, 255, 255, 0) 70%,
+      rgba(255, 255, 255, 0.4) 80%,
+      rgba(253, 247, 249, 0) 90%,
+      rgba(255, 255, 255, 0.3) 100%
+    ),
+    /* Linear Gradient */ linear-gradient(135deg, transparent, #f8edf6),
+    /* Radial Gradient */
+      radial-gradient(circle at top left, #f9fffb, transparent),
+    /* Linear Gradient */ linear-gradient(45deg, #bcbae4, #edefd7);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.textContainer {
     position: relative;
     width: 100%;
-    height: 600px;
-    background: url('../../assets/images/kids.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    overflow: hidden;
-    z-index: 1;
+    height: 700px;
 }
-.textOverlay{
-    position: absolute;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: left;
-    width: 100%;
-    z-index: 1;
-    line-height: 1.5;
-    padding: 0 1.5rem;
-
-    h2{
-        font-size: 3rem;
-        color: white;
-        letter-spacing: 0.5rem;
-        font-weight: 700;
-        text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
-    p{
-        font-size: 0.85rem;
-        color: white;
-        text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
-    sup{
-        font-size: 0.8em;
-    }
+.textOverlay {
+    position: relative;
+}
+.paper {
+  border: 1px solid;
+  border-top-right-radius: 68px 2px;
+  border-top-left-radius: 2px 53px;
+  border-bottom-right-radius: 2px 73px;
+  border-bottom-left-radius: 78px 1.3px;
+  box-shadow: 15px 28px 25px -18px rgba(0, 0, 0, 0.2);
+  font-family: "Comic Sans MS", "sans-serif";
+  background-color: lightyellow;
+  padding: 15px 20px;
+  position: absolute;
+}
+.stickyNotes1 {
+  height: 170px;
+  width: 260px;
+  transform: rotate(-10deg);
+  top:60px;
+  left: 100px;
+}
+.stickyNotes2 {
+    height: 170px;
+    width: 260px;
+    transform: rotate(8deg);
+    top:230px;
+    left: 200px;
+}
+.stickyNotes3 {
+    height: 160px;
+    width: 260px;
+    transform: rotate(-8deg);
+    top:400px;
+    left: 100px;
 }
